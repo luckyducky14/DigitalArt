@@ -2,7 +2,7 @@ package domain;
 
 /*
 Product.java
-Product model class
+Product POJO class
 Author: Bekithemba Mrwetyana (222706066)
 Date: 01 May 2025
 */

@@ -1,5 +1,12 @@
 package domain;
 
+/*
+Cart.java
+Cart POJO class
+Author: Bekithemba Mrwetyana (222706066)
+Date: 01 May 2025
+*/
+
 import java.util.List;
 
 public class Cart {
@@ -41,16 +48,19 @@ public class Cart {
         private int userID;
         private List<Product> items;
 
-        public int getCartID() {
-            return cartID;
+        public Builder setCartID(int cartID) {
+            this.cartID = cartID;
+            return this;
         }
 
-        public int getUserID() {
-            return userID;
+        public Builder setUserID(int userID) {
+            this.userID = userID;
+            return this;
         }
 
-        public List<Product> getItems() {
-            return items;
+        public Builder setItems(List<Product> items) {
+            this.items = items;
+            return this;
         }
 
         public Builder copy(Cart cart){
