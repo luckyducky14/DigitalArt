@@ -14,11 +14,11 @@ public class CartItem {
  private CartItem() {
  }
 
- public CartItem(Builder builder){
-  this.cartItemID=builder.cartItemID;
-  this.cartID=builder.cartID;
-  this.productID=builder.productID;
-  this.quantity=builder.quantity;
+ public CartItem(Builder builder) {
+  this.cartItemID = builder.cartItemID;
+  this.cartID = builder.cartID;
+  this.productID = builder.productID;
+  this.quantity = builder.quantity;
  }
 
  public int getCartItemID() {
