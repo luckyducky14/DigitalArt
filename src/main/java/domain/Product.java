@@ -10,10 +10,10 @@ Date: 01 May 2025
 public class Product {
 
     private String productID;
+    private String categoryID;
     private String title;
     private String description;
     private double price;
-    private String categoryID;
 
     public Product(){
     }
@@ -70,6 +70,11 @@ public class Product {
             return this;
         }
 
+        public Builder setCategoryID(String categoryID) {
+            this.categoryID = categoryID;
+            return this;
+        }
+
         public Builder setTitle(String title) {
             this.title = title;
             return this;
@@ -85,20 +90,17 @@ public class Product {
             return this;
         }
 
-        public Builder setCategoryID(String categoryID) {
-            this.categoryID = categoryID;
-            return this;
-        }
-
         public Builder copy(Product product){
             this.productID = product.productID;
+            this.categoryID = product.categoryID;
             this.title = product.title;
             this.description = product.description;
             this.price = product.price;
-            this.categoryID = product.categoryID;
             return this;
         }
-
+        public Product build(){
+            return new Product(this);
+        }
     }
 
 }

@@ -101,5 +101,8 @@ public class Payment {
             this.method = payment.method;
             return this;
         }
+        public Payment build(){
+            return new Payment(this);
+        }
     }
 }
