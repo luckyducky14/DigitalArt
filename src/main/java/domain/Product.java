@@ -3,17 +3,17 @@ package domain;
 /*
 Product.java
 Product POJO class
-Author: Bekithemba Mrwetyana (222706066)
-Date: 01 May 2025
+Author: Thimna Gogwana (222213973)
+Date: 10 May 2025
 */
 
-public class Product {
+public class  Product {
 
     private String productID;
+    private String categoryID;
     private String title;
     private String description;
     private double price;
-    private String categoryID;
 
     public Product(){
     }
@@ -24,7 +24,9 @@ public class Product {
         this.description = builder.description;
         this.price = builder.price;
         this.categoryID = builder.categoryID;
+
     }
+
 
     public String getProductID() {
         return productID;
@@ -57,6 +59,7 @@ public class Product {
                 '}';
     }
 
+
     public static class Builder{
 
         private String productID;
@@ -67,6 +70,11 @@ public class Product {
 
         public Builder setProductID(String productID) {
             this.productID = productID;
+            return this;
+        }
+
+        public Builder setCategoryID(String categoryID) {
+            this.categoryID = categoryID;
             return this;
         }
 
@@ -85,20 +93,17 @@ public class Product {
             return this;
         }
 
-        public Builder setCategoryID(String categoryID) {
-            this.categoryID = categoryID;
-            return this;
-        }
-
         public Builder copy(Product product){
             this.productID = product.productID;
+            this.categoryID = product.categoryID;
             this.title = product.title;
             this.description = product.description;
             this.price = product.price;
-            this.categoryID = product.categoryID;
             return this;
         }
-
+        public Product build(){
+            return new Product(this);
+        }
     }
 
 }
