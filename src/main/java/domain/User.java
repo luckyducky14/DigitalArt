@@ -3,7 +3,7 @@ package domain;
 /*
 User.java
 User POJO class
-Author: Luvo Nana 221376909
+Author: Luvooo Nana 221376909
 Date: 08 May 2025
 */
 
@@ -116,6 +116,7 @@ public class User {
             return this;
         }
 
+
         public Builder copy(User item) {
             this.userId = item.userId;
             this.lastName = item.lastName;
@@ -130,4 +131,5 @@ public class User {
         }
     }
 }
+
 
