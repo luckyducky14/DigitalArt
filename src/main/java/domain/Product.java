@@ -3,11 +3,11 @@ package domain;
 /*
 Product.java
 Product POJO class
-Author: Bekithemba Mrwetyana (222706066)
-Date: 01 May 2025
+Author: Thimna Gogwana (222213973)
+Date: 10 May 2025
 */
 
-public class Product {
+public class  Product {
 
     private String productID;
     private String categoryID;
@@ -25,6 +25,7 @@ public class Product {
         this.price = builder.price;
         this.categoryID = builder.categoryID;
     }
+
 
     public String getProductID() {
         return productID;
