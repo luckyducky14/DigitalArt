@@ -24,6 +24,7 @@ public class  Product {
         this.description = builder.description;
         this.price = builder.price;
         this.categoryID = builder.categoryID;
+
     }
 
 
