@@ -58,6 +58,7 @@ public class  Product {
                 '}';
     }
 
+
     public static class Builder{
 
         private String productID;
