@@ -18,6 +18,7 @@ public class PaymentFactory {
                 .setAmount(amount)
                 .setStatus(status)
                 .setMethod(method)
+
                 .build();
     }
 
