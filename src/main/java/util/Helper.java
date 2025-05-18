@@ -3,6 +3,8 @@ package util;
 import domain.OrderItem;
 import domain.Product;
 
+import java.util.UUID;
+
 public class Helper {
     public static boolean isValidCartItemID(int cartItemID) {
         return cartItemID >= 0;
@@ -79,4 +81,13 @@ public class Helper {
                 isValidPrice(product.getPrice()) &&
                 (product.getCategoryID() == null || isValidCategoryID(product.getCategoryID()));
     }
+     public static String generateId() {
+        return UUID.randomUUID().toString();
+     }
+
+     public static boolean isNullOrEmpty(String str) {
+        if (str.isEmpty() || str == null)
+            return true;
+        return false;
+     }
 }
