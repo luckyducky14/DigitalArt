@@ -69,6 +69,9 @@ public class Cart {
             this.items = cart.items;
             return this;
         }
+        public Cart build(){
+            return new Cart(this);
+        }
 
     }
 

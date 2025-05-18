@@ -18,8 +18,9 @@ public class Payment {
     private String status;
     private String method;
 
-    // Constructors
-    public Payment() {}
+    public Payment() {
+
+    }
 
     public Payment(Builder builder) {
         this.paymentID = builder.paymentID;
@@ -100,6 +101,9 @@ public class Payment {
             this.status = payment.status;
             this.method = payment.method;
             return this;
+        }
+        public Payment build(){
+            return new Payment(this);
         }
     }
 }
