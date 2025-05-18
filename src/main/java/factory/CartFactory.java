@@ -1,5 +1,10 @@
 package factory;
-
+/*
+CartFactory.java
+Cart Factory class
+Author: Bekithemba Mrwetyana 222706066
+Date: 17 May 2025
+*/
 import domain.Cart;
 import domain.CartItem;
 import util.Helper;

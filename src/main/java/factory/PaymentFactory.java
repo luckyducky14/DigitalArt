@@ -1,5 +1,10 @@
 package factory;
-
+/*
+PaymentFactory.java
+Payment Factory class
+Author: Bekithemba Mrwetyana 222706066
+Date: 17 May 2025
+*/
 import domain.Payment;
 import util.Helper;
 
