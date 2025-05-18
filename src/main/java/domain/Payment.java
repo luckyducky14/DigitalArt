@@ -18,8 +18,9 @@ public class Payment {
     private String status;
     private String method;
 
-    // Constructors
-    public Payment() {}
+    public Payment() {
+
+    }
 
     public Payment(Builder builder) {
         this.paymentID = builder.paymentID;
