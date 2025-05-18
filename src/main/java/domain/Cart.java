@@ -11,26 +11,26 @@ import java.util.List;
 
 public class Cart {
 
-    private int cartID;
-    private int userID;
-    private List<Product> items;
+    private String cartID;
+    private String userID;
+    private CartItem cartItem;
 
     private Cart(Builder builder) {
         this.cartID = builder.cartID;
         this.userID = builder.userID;
-        this.items = builder.items;
+        this.cartItem = builder.cartItem;
     }
 
-    public int getCartID() {
+    public String getCartID() {
         return cartID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public List<Product> getItems() {
-        return items;
+    public CartItem getCartItem() {
+        return cartItem;
     }
 
     @Override
@@ -38,35 +38,35 @@ public class Cart {
         return "Cart{" +
                 "cartID=" + cartID +
                 ", userID=" + userID +
-                ", itemId=" + items +
+                ", cartItem=" + cartItem +
                 '}';
     }
 
     public static class Builder{
 
-        private int cartID;
-        private int userID;
-        private List<Product> items;
+        private String cartID;
+        private String userID;
+        private CartItem cartItem;
 
-        public Builder setCartID(int cartID) {
+        public Builder setCartID(String cartID) {
             this.cartID = cartID;
             return this;
         }
 
-        public Builder setUserID(int userID) {
+        public Builder setUserID(String userID) {
             this.userID = userID;
             return this;
         }
 
-        public Builder setItems(List<Product> items) {
-            this.items = items;
+        public Builder setCartItem(CartItem cartItem) {
+            this.cartItem = cartItem;
             return this;
         }
 
         public Builder copy(Cart cart){
             this.cartID = cart.cartID;
             this.userID = cart.userID;
-            this.items = cart.items;
+            this.cartItem = cart.cartItem;
             return this;
         }
         public Cart build(){
