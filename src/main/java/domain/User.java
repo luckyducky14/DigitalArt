@@ -3,7 +3,7 @@ package domain;
 /*
 User.java
 User POJO class
-Author: Luvoo Nana 221376909
+Author: Luvo Nana 221376909
 Date: 08 May 2025
 */
 
