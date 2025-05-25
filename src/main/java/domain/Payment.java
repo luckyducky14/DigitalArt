@@ -7,17 +7,24 @@ Author: Bekithemba Mrwetyana (222706066)
 Date: 04 May 2025
 */
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDate;
 
+@Entity
+@Table (name = "payment")
 public class Payment {
 
+    @Id
     private String paymentID;
     private LocalDate paymentDate;
     private double amount;
     private String status;
     private String method;
 
-    public Payment() {
+    protected Payment() {
     }
 
     public Payment(Builder builder) {
