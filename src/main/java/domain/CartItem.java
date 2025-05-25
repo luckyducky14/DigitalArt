@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 CartItem.java
 CartItem POJO class
 Author: Thandolwethu P Mseleku
-Date: 07 May 2025
+Date: 25 May 2025
 */
 
 @Entity
