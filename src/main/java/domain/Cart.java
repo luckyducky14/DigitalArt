@@ -9,6 +9,8 @@ Date: 01 May 2025
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Cart")
 public class Cart {
@@ -16,29 +18,31 @@ public class Cart {
     @Id
     private String cartID;
 
-    private String userID;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cartItemID")
-    private CartItem cartItem;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    private User userID;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 
     protected Cart(){}
 
     public Cart(Builder builder) {
         this.cartID = builder.cartID;
         this.userID = builder.userID;
-        this.cartItem = builder.cartItem;
+        this.cartItems = builder.cartItems;
     }
 
     public String getCartID() {
         return cartID;
     }
 
-    public String getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public CartItem getCartItem() {
-        return cartItem;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
     @Override
@@ -46,35 +50,35 @@ public class Cart {
         return "Cart{" +
                 "cartID=" + cartID +
                 ", userID=" + userID +
-                ", cartItem=" + cartItem +
+                ", cartItem=" + cartItems +
                 '}';
     }
 
     public static class Builder{
 
         private String cartID;
-        private String userID;
-        private CartItem cartItem;
+        private User userID;
+        private List<CartItem> cartItems;
 
         public Builder setCartID(String cartID) {
             this.cartID = cartID;
             return this;
         }
 
-        public Builder setUserID(String userID) {
+        public Builder setUserID(User userID) {
             this.userID = userID;
             return this;
         }
 
-        public Builder setCartItem(CartItem cartItem) {
-            this.cartItem = cartItem;
+        public Builder setCartItem(List<CartItem> cartItems) {
+            this.cartItems = cartItems;
             return this;
         }
 
         public Builder copy(Cart cart){
             this.cartID = cart.cartID;
             this.userID = cart.userID;
-            this.cartItem = cart.cartItem;
+            this.cartItems = cart.cartItems;
             return this;
         }
         public Cart build(){

@@ -2,8 +2,10 @@ package util;
 
 import domain.Order;
 import domain.OrderItem;
+import domain.Payment;
 import domain.Product;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Helper {
@@ -106,4 +108,40 @@ public class Helper {
     public static boolean isValidOrderAssociation(Order order) {
         return order != null && isValidEntityId(order.getOrderID());
     }
+
+    // Payment validations
+    public static boolean isValidPaymentID(String paymentID) {
+        return paymentID != null && !paymentID.trim().isEmpty() && paymentID.matches("pay-\\d+");
+    }
+    public static boolean isValidPaymentDate(LocalDate paymentDate) {
+        return paymentDate != null && !paymentDate.isAfter(LocalDate.now());
+    }
+    public static boolean isValidAmount(double amount) {
+        return amount >= 0.0 && amount <= 999999.99;
+    }
+    public static boolean isValidStatus(String status) {
+        return status != null && !status.trim().isEmpty() && (status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Completed") || status.equalsIgnoreCase("Failed"));
+    }
+    public static boolean isValidMethod(String method) {
+        return method != null && !method.trim().isEmpty() && (method.equalsIgnoreCase("Credit Card") || method.equalsIgnoreCase("Debit Card"));
+    }
+    public static boolean isValidPayment(Payment payment) {
+        return payment != null &&
+                isValidPaymentID(payment.getPaymentID()) &&
+                isValidPaymentDate(payment.getPaymentDate()) &&
+                isValidAmount(payment.getAmount()) &&
+                isValidStatus(payment.getStatus()) &&
+                isValidMethod(payment.getMethod());
+    }
+
+    // Cart validations
+
+    public static boolean isValidCartID(String cartID) {
+        return cartID != null && !cartID.trim().isEmpty() && cartID.matches("cart-\\d+");
+    }
+    public static boolean isValidUser(int userID) {
+        return userID > 0;
+    }
+
+
 }

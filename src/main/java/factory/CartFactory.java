@@ -7,19 +7,20 @@ Date: 17 May 2025
 */
 import domain.Cart;
 import domain.CartItem;
+import domain.User;
 import util.Helper;
+
+import java.util.List;
 
 public class CartFactory {
 
-    public static Cart createCart(String cartID, String userID, CartItem cartItem) {
-        if (Helper.isNullOrEmpty(cartID) || Helper.isNullOrEmpty(userID)){
+    public static Cart createCart(String cartID, User userID, List<CartItem> cartItems) {
+        if (Helper.isNullOrEmpty(cartID)) {
             return null;
         }
-        if (cartItem == null) {
-            return null;
-        }
+
         return new Cart.Builder()
-                .setCartItem(cartItem)
+                .setCartItem(cartItems)
                 .setCartID(cartID)
                 .setUserID(userID)
                 .build();

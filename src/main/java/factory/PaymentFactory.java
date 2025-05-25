@@ -14,9 +14,22 @@ public class PaymentFactory {
 
     public static Payment createPayment(String paymentID, LocalDate paymentDate, double amount, String status, String method){
 
-        if(amount <= 0 || Helper.isNullOrEmpty(status) || Helper.isNullOrEmpty(method)){
+        if(Helper.isValidPaymentID(paymentID)){
             return null;
         }
+        if(Helper.isValidPaymentDate(paymentDate)){
+            return null;
+        }
+        if(Helper.isValidAmount(amount)){
+            return null;
+        }
+        if(Helper.isValidStatus(status)){
+            return null;
+        }
+        if(Helper.isValidMethod(method)){
+            return null;
+        }
+
         
         return new Payment.Builder()
                 .setPaymentID(paymentID)
@@ -26,10 +39,14 @@ public class PaymentFactory {
                 .build();
     }
     public static Payment createPayment(LocalDate paymentDate, double amount, String status, String method){
-        if(amount <= 0 || Helper.isNullOrEmpty(status) || Helper.isNullOrEmpty(method)){
+
+        if(Helper.isValidAmount(amount)){
             return null;
         }
-        if(paymentDate == null){
+        if(Helper.isValidStatus(status)){
+            return null;
+        }
+        if(Helper.isValidMethod(method)){
             return null;
         }
 

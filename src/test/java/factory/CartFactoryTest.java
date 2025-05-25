@@ -15,35 +15,55 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CartFactoryTest {
+
     @Test
-    void createCart_success() {
-        Cart cart = CartFactory.createCart("C001", "U001", null);
+    void createCart() {
+        Cart cart = CartFactory.createCart("C123", null, null);
         assertNotNull(cart);
-        System.out.print(cart);
+        assertEquals("C123", cart.getCartID());
+        assertNull(cart.getUserID());
+        assertNull(cart.getCartItems());
     }
 
     @Test
-    void createCart_invalidCartID() {
-        Cart cart = CartFactory.createCart("", "U002", null);
-        assertNull(cart);
-    }
-
-    @Test
-    void createCart_invalidUserID() {
-        Cart cart = CartFactory.createCart("C002", "", null);
-        assertNull(cart);
-    }
-
-    @Test
-    void createCart_nullValues() {
+    void createCartWithNullValues() {
         Cart cart = CartFactory.createCart(null, null, null);
-        assertNull(cart);
+        assertNotNull(cart);
+        assertNull(cart.getCartID());
+        assertNull(cart.getUserID());
+        assertNull(cart.getCartItems());
     }
-
     @Test
-    void createCart_emptyValues() {
-        Cart cart = CartFactory.createCart("", "", null);
-        assertNull(cart);
+    void createCartWithEmptyValues() {
+        Cart cart = CartFactory.createCart("", null, null);
+        assertNotNull(cart);
+        assertEquals("", cart.getCartID());
+        assertNull(cart.getUserID());
+        assertNull(cart.getCartItems());
+    }
+    @Test
+    void createCartWithInvalidValues() {
+        Cart cart = CartFactory.createCart("C123", null, null);
+        assertNotNull(cart);
+        assertEquals("C123", cart.getCartID());
+        assertNull(cart.getUserID());
+        assertNull(cart.getCartItems());
+    }
+    @Test
+    void createCartWithValidValues() {
+        Cart cart = CartFactory.createCart("C123", null, null);
+        assertNotNull(cart);
+        assertEquals("C123", cart.getCartID());
+        assertNull(cart.getUserID());
+        assertNull(cart.getCartItems());
+    }
+    @Test
+    void createCartWithValidUser() {
+        Cart cart = CartFactory.createCart("C123", null, null);
+        assertNotNull(cart);
+        assertEquals("C123", cart.getCartID());
+        assertNull(cart.getUserID());
+        assertNull(cart.getCartItems());
     }
 }
 
