@@ -1,5 +1,6 @@
 package util;
 
+import domain.Order;
 import domain.OrderItem;
 import domain.Product;
 
@@ -41,7 +42,7 @@ public class Helper {
         return orderItem != null &&
                 isValidOrderItemID(orderItem.getItemID()) &&
                 isValidOrderID(orderItem.getOrderID()) &&
-                isValidProductID(orderItem.getProductID()) &&
+                isValidProduct(orderItem.getProduct()) &&
                 isValidQuantity(orderItem.getQuantity()) &&
                 isValidUnitPrice(orderItem.getUnitPrice()) &&
                 isValidSubTotal(orderItem.getSubTotal()) &&
@@ -90,4 +91,19 @@ public class Helper {
             return true;
         return false;
      }
+    public static boolean isValidEntityId(String id) {
+        return id != null && !id.trim().isEmpty() && id.length() <= 50;
+    }
+
+    public static boolean isValidEntityId(int id) {
+        return id > 0;
+    }
+
+    public static boolean isValidProductAssociation(Product product) {
+        return product != null && isValidEntityId(product.getProductID());
+    }
+
+    public static boolean isValidOrderAssociation(Order order) {
+        return order != null && isValidEntityId(order.getOrderID());
+    }
 }
