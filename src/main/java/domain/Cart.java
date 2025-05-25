@@ -7,15 +7,23 @@ Author: Bekithemba Mrwetyana (222706066)
 Date: 01 May 2025
 */
 
-import java.util.List;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "Cart")
 public class Cart {
 
+    @Id
     private String cartID;
+
     private String userID;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cartItemID")
     private CartItem cartItem;
 
-    private Cart(Builder builder) {
+    protected Cart(){}
+
+    public Cart(Builder builder) {
         this.cartID = builder.cartID;
         this.userID = builder.userID;
         this.cartItem = builder.cartItem;
