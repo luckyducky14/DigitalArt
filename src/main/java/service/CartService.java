@@ -1,5 +1,10 @@
 package service;
-
+/*
+CartService.java
+Cart service
+Author: Bekithemba Mrwetyana (222706066)
+Date: 06 July 2025
+*/
 import domain.Cart;
 import org.springframework.stereotype.Service;
 import repository.CartRepository;

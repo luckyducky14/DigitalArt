@@ -1,5 +1,10 @@
 package service;
-
+/*
+PaymentService.java
+Payment service
+Author: Bekithemba Mrwetyana (222706066)
+Date: 7 May 2025
+*/
 import domain.Cart;
 import domain.Payment;
 import org.springframework.stereotype.Service;
