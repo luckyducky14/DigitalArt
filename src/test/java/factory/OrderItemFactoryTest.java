@@ -6,10 +6,12 @@ Author: Thimma Gogwana 222213973
 Date: 25 May 2025
 */
 
-import domain.OrderItem;
-import domain.Product;
+import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import za.ac.cput.factory.OrderItemFactory;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderItemFactoryTest {

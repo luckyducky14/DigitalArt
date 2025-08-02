@@ -7,9 +7,10 @@ Author: Bekithemba Mrwetyana (222706066)
 Date: 17 May 2025
 */
 
-import domain.Cart;
+import za.ac.cput.domain.Cart;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.factory.CartFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

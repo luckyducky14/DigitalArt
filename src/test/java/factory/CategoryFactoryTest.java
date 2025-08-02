@@ -6,8 +6,9 @@ Author: Abethu Ngxitho 221297820
 Date: 18 May 2025
 */
 
-import domain.Category;
+import za.ac.cput.domain.Category;
 import org.junit.jupiter.api.Test;
+import za.ac.cput.factory.CategoryFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

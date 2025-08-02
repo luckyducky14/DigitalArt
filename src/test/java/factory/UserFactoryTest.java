@@ -1,7 +1,8 @@
 package factory;
 
-import domain.User;
+import za.ac.cput.domain.User;
 import org.junit.jupiter.api.Test;
+import za.ac.cput.factory.UserFactory;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

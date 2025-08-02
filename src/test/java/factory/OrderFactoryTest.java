@@ -5,19 +5,10 @@ Order Factory Test class
 Author: Mpilonhle Zimela Mzimela 230197833
 Date: 14 May 2025
 */
-import domain.Order;
-import domain.OrderItem;
+import za.ac.cput.domain.Order;
+import za.ac.cput.domain.OrderItem;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import domain.Order;
-import domain.OrderItem;
-import org.junit.jupiter.api.Test;
+import za.ac.cput.factory.OrderFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;

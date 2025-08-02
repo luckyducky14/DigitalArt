@@ -5,10 +5,11 @@ CartItemFactory POJO class
 Author: Thandolwethu P Mseleku
 Date: 18 May 2025
 */
-import domain.CartItem;
+import za.ac.cput.domain.CartItem;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import za.ac.cput.factory.CartItemFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
