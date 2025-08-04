@@ -1,22 +1,32 @@
 package factory;
 /*
-CartItemFctory.java
-CartItemFactory POJO class
+CartItemFactoryTest.java
+CartItemFactoryTest POJO class
 Author: Thandolwethu P Mseleku
 Date: 18 May 2025
 */
+import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.CartItem;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import za.ac.cput.domain.Product;
 import za.ac.cput.factory.CartItemFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CartItemFactoryTest {
+    static Cart cart = new Cart.Builder()
+            .setCartID("C123")
+            .build();
 
-        private static CartItem cartItem1 = CartItemFactory.createCartItem(10,11,50,20);
-        private static CartItem cartItem2 = CartItemFactory.createCartItem(-1,30,05,80);
+    static Product product = new Product.Builder()
+            .setProductID("P456")
+            .setPrice(49.99)
+            .build();
+
+        private static CartItem cartItem1 = CartItemFactory.createCartItem(2,cart,product,9);
+        private static CartItem cartItem2 = CartItemFactory.createCartItem(-1,cart,product,80);
 
         @Test
         @Order(1)
