@@ -8,7 +8,7 @@ import za.ac.cput.repository.OrderItemRepository;
 import java.util.List;
 
 @Service
-public class OrderItemService  {
+public class OrderItemService implements IOrderItemService {
 
     private final OrderItemRepository repository;
 
