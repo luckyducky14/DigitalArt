@@ -24,7 +24,7 @@ class CartItemServiceTest {
             .setProductID("P456")
             .build();
 
-private final CartItem cartItem = CartItemFactory.createCartItem(20,cart,product,10);
+private final CartItem cartItem = CartItemFactory.createCartItem(cart,product,10);
 
     
 CartItemServiceTest(ICartItemService service){this.service=service;}

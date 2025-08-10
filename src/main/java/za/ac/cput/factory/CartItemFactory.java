@@ -11,13 +11,12 @@ import za.ac.cput.domain.Product;
 import za.ac.cput.util.Helper;
 
 public class CartItemFactory {
-    public static CartItem createCartItem(int cartItemID, Cart cart, Product product, int quantity) {
-        if (!Helper.isValidCartItemID(cartItemID) || cart == null || product == null || !Helper.isValidQuantity(quantity)) {
+    public static CartItem createCartItem(Cart cart, Product product, int quantity) {
+        if ( cart == null || product == null || !Helper.isValidQuantity(quantity)) {
             return null;
         }
 
         return new CartItem.Builder()
-                .setCartItemID(cartItemID)
                 .setCart(cart)
                 .setProduct(product)
                 .setQuantity(quantity)

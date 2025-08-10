@@ -25,8 +25,8 @@ class CartItemFactoryTest {
             .setPrice(49.99)
             .build();
 
-        private static CartItem cartItem1 = CartItemFactory.createCartItem(2,cart,product,9);
-        private static CartItem cartItem2 = CartItemFactory.createCartItem(-1,cart,product,80);
+        private static CartItem cartItem1 = CartItemFactory.createCartItem(cart,product,9);
+        private static CartItem cartItem2 = CartItemFactory.createCartItem(cart,product,-1);
 
         @Test
         @Order(1)
@@ -38,9 +38,9 @@ class CartItemFactoryTest {
         }
         @Test
         @Order(2)
-        public void testCreateCartWithInvalidCartItemID() {
+        public void testCreateCartWithInvalidQuantity() {
             assertNull(cartItem2);
-            System.out.println("Failed due to invalid cart item ID.");
+            System.out.println("Failed due to invalid quantity");
 
         }
 
