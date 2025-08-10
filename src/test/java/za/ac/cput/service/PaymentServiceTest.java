@@ -1,4 +1,4 @@
-package service;
+package za.ac.cput.service;
 
 import za.ac.cput.domain.Payment;
 import za.ac.cput.factory.PaymentFactory;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.service.IPaymentService;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package controller;
+package za.ac.cput.controller;
 
 import za.ac.cput.domain.OrderItem;
 import org.junit.jupiter.api.*;

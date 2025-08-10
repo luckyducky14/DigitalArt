@@ -1,9 +1,8 @@
-package service;
+package za.ac.cput.service;
 
 import za.ac.cput.domain.Cart;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.service.ICartService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

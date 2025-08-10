@@ -1,4 +1,4 @@
-package controller;
+package za.ac.cput.controller;
 /*
 OrderControllerTest.java
 Order controller test class

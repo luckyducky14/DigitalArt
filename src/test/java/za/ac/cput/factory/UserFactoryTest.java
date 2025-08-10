@@ -1,4 +1,4 @@
-package factory;
+package za.ac.cput.factory;
 
 import za.ac.cput.domain.User;
 import org.junit.jupiter.api.Test;

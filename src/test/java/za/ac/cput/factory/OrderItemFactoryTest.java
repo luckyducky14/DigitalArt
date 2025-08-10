@@ -1,4 +1,4 @@
-package factory;
+package za.ac.cput.factory;
 /*
 OrderItemFactoryTest.java
 OrderItem Factory Test class
