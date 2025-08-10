@@ -7,6 +7,7 @@ Author: Bekithemba Mrwetyana (222706066)
 Date: 04 May 2025
 */
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -18,10 +19,15 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
+    @Column(name = "paymentID")
     private String paymentID;
+    @Column(name = "paymentDate")
     private LocalDate paymentDate;
+    @Column(name = "amount")
     private double amount;
+    @Column(name = "status")
     private String status;
+    @Column(name = "method")
     private String method;
 
     protected Payment() {
