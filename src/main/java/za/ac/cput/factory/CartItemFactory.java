@@ -5,16 +5,21 @@ CartItemFactory POJO class
 Author: Thandolwethu P Mseleku
 Date: 18 May 2025
 */
+import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.CartItem;
+import za.ac.cput.domain.Product;
 import za.ac.cput.util.Helper;
 
 public class CartItemFactory {
-    public static CartItem createCartItem(int cartItemID,int cartID,int productID,int quantity) {
-        if(!Helper.isValidCartItemID(cartItemID) || !Helper.isValidProductID(productID) ||
-                !Helper.isValidQuantity(quantity) ||! Helper.isValidCartID(cartID)) {
+    public static CartItem createCartItem(Cart cart, Product product, int quantity) {
+        if ( cart == null || product == null || !Helper.isValidQuantity(quantity)) {
             return null;
         }
-        return new CartItem.Builder().setCartItemID(cartItemID).
-                setCartID(cartID).setProductID(productID).setQuantity(quantity).build();
+
+        return new CartItem.Builder()
+                .setCart(cart)
+                .setProduct(product)
+                .setQuantity(quantity)
+                .build();
     }
 }
