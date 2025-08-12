@@ -6,12 +6,10 @@ Author: Abethu Ngxitho 221297820
 Date: 07 May 2025
 */
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Category")
 public class Category {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
