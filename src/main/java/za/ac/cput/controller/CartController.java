@@ -30,8 +30,8 @@ public class CartController {
         return service.update(cart);
     }
     @DeleteMapping("/delete/{cartID}")
-    public boolean delete(@PathVariable Long cartID){
-        return service.delete(cartID);
+    public void delete(@PathVariable Long cartID){
+        this.service.delete(cartID);
     }
     @GetMapping("/getAll")
     public List<Cart> getAll(){
