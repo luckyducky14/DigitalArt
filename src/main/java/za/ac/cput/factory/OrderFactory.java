@@ -1,16 +1,8 @@
 package za.ac.cput.factory;
-/*
-OrderFactory.java
-Order Factory class
-Author: Mpilonhle Zimela Mzimela 230197833
-Date: 14 May 2025
-*/
-
-
-
 
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,4 +22,3 @@ public class OrderFactory {
                 .build();
     }
 }
-

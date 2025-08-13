@@ -27,7 +27,7 @@ public class OrderItemControllerTest {
     @Order(1)
     void create() {
         orderItem = new OrderItem.Builder()
-                .setItemID(1)
+                .setItemID(1L)
                 .setOrderID(101)
                 .setQuantity(2)
                 .setUnitPrice(100.00)
