@@ -50,7 +50,7 @@ class OrderItemServiceTest {
     void c_update() {
         OrderItem newOrderItem = new OrderItem.Builder()
                 .copy(orderItem)
-                .setQuantity(10) // example update
+                .setQuantity(10)
                 .build();
         OrderItem updated = service.update(newOrderItem);
         assertNotNull(updated);
