@@ -19,13 +19,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId; //long
+    private Long userId;
     private String lastName;
     private String firstName;
     private String email;
     private String password;
     private LocalDateTime lastLogin;
     private LocalDate createDate;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -39,14 +40,21 @@ public class User {
         this.firstName = builder.firstName;
         this.email = builder.email;
         this.password = builder.password;
+        this.role = builder.role;
+        this.lastLogin = builder.lastLogin;
+        this.createDate = builder.createDate;
+
     }
 
     // Getters
-    public int getUserId() { return userId; }
+    public Long getUserId() { return userId; }
     public String getLastName() { return lastName; }
     public String getFirstName() { return firstName; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+    public Role getRole() { return role; }
+    public LocalDateTime getLastLogin() { return lastLogin; }
+    public LocalDate getCreateDate() { return createDate; }
 
     @Override
     public String toString() {
@@ -56,18 +64,24 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
+                ", lastLogin=" + lastLogin +
+                ", createDate=" + createDate +
                 '}';
     }
 
     // Builder pattern
     public static class Builder {
-        private int userId; //long
+        private Long userId; //long
         private String lastName;
         private String firstName;
         private String email;
         private String password;
+        private Role role;
+        private LocalDateTime lastLogin;
+        private LocalDate createDate;
 
-        public Builder setUserId(int userId) {
+        public Builder setUserId(Long userId) {
             this.userId = userId;
             return this;
         }
@@ -87,12 +101,27 @@ public class User {
             this.password = password;
             return this;
         }
+        public Builder setRole(Role role) {
+            this.role = role;
+            return this;
+        }
+        public Builder setLastLogin(LocalDateTime lastLogin) {
+            this.lastLogin = lastLogin;
+            return this;
+        }
+        public Builder setCreateDate(LocalDate createDate) {
+            this.createDate = createDate;
+            return this;
+        }
         public Builder copy(User user) {
             this.userId = user.userId;
             this.lastName = user.lastName;
             this.firstName = user.firstName;
             this.email = user.email; //Remove
             this.password = user.password;
+            this.role = user.role;
+            this.lastLogin = user.lastLogin;
+            this.createDate = user.createDate;
             return this;
         }
         public User build() {
