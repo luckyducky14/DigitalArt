@@ -21,16 +21,16 @@ public class PaymentController {
     public Payment create(@RequestBody Payment payment){
         return service.create(payment);
     }
-    @GetMapping("/read")
-    public Payment read(@PathVariable String paymentID){
+    @GetMapping("/read/{paymentID}")
+    public Payment read(@PathVariable Long paymentID){
         return service.read(paymentID);
     }
     @PutMapping("/update")
     public Payment update(@RequestBody Payment payment){
         return service.update(payment);
     }
-    @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String paymentID){
+    @DeleteMapping("/delete/{paymentID}")
+    public boolean delete(@PathVariable Long paymentID){
         return service.delete(paymentID);
     }
     @GetMapping("/getAll")

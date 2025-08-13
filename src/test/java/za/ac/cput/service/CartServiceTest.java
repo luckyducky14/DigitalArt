@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.domain.Cart;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class CartServiceTest {
 
+    @Autowired
     private static ICartService service;
 
     private static Cart cart;
@@ -33,7 +35,7 @@ class CartServiceTest {
     @Test
     @Order(3)
     void update() {
-        Cart newCart = new Cart.Builder().copy(cart).setCartID("C01").build();
+        Cart newCart = new Cart.Builder().copy(cart).setCartID(123L).build();
         Cart updated = service.update(newCart);
         assertNotNull(updated);
         System.out.println(updated);

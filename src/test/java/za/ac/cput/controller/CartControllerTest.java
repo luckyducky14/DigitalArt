@@ -21,6 +21,8 @@ class CartControllerTest {
 
     private static final String BASE_URL = "https://localhost:8080/cart";
 
+    public static void setup(){}
+
     @Test
     @Order(1)
     void create() {
@@ -46,7 +48,7 @@ class CartControllerTest {
     @Test
     @Order(3)
     void update() {
-        Cart updatedCart = new Cart.Builder().copy(cart).setCartID("C102").build();
+        Cart updatedCart = new Cart.Builder().copy(cart).setCartID(123L).build();
         String url = BASE_URL + "/update";
         this.restTemplate.put(url, updatedCart);
 

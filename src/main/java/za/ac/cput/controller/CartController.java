@@ -21,17 +21,17 @@ public class CartController {
     public Cart create(@RequestBody Cart cart){
         return service.create(cart);
     }
-    @GetMapping("/read")
-    public Cart read(@PathVariable String cartID){
+    @GetMapping("/read/{cartID}")
+    public Cart read(@PathVariable Long cartID){
         return service.read(cartID);
     }
     @PutMapping("/update")
     public Cart update(@RequestBody Cart cart){
         return service.update(cart);
     }
-    @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String cartId){
-        return service.delete(cartId);
+    @DeleteMapping("/delete/{cartID}")
+    public boolean delete(@PathVariable Long cartID){
+        return service.delete(cartID);
     }
     @GetMapping("/getAll")
     public List<Cart> getAll(){

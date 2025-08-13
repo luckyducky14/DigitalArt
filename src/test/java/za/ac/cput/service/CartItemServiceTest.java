@@ -17,7 +17,7 @@ class CartItemServiceTest {
     @Autowired
     private ICartItemService service;
     static Cart cart = new Cart.Builder()
-            .setCartID("C123")
+            .setCartID(123L)
             .build();
 
     static Product product = new Product.Builder()
