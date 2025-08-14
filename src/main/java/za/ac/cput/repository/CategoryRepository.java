@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 @Repository
-public interface CategoryRepository extends JpaRepository <Category, String>{
+public interface CategoryRepository extends JpaRepository <Category, Long>{
 
     List<Category> findbyName(String name);
 
