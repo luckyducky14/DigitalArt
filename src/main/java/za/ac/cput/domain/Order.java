@@ -3,19 +3,23 @@ package za.ac.cput.domain;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import za.ac.cput.domain.enums.OrderStatus;
 
 @Entity
 @Table(name = "orders")
 public class Order {
 
     @Id
-    private int orderID; // Keep int to match OrderItemFactory
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderID;
 
-    private int userID; // Keep int to match OrderItemFactory
+    private Long userID;
     private double totalAmount;
     private LocalDateTime orderDate;
-    private int paymentID;
-    private String paymentStatus;
+    private Long paymentID;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus paymentStatus;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
@@ -33,11 +37,11 @@ public class Order {
         this.paymentStatus = builder.paymentStatus;
     }
 
-    public int getOrderID() {
+    public Long getOrderID() {
         return orderID;
     }
 
-    public int getUserID() {
+    public Long getUserID() {
         return userID;
     }
 
@@ -53,11 +57,11 @@ public class Order {
         return orderDate;
     }
 
-    public int getPaymentID() {
+    public Long getPaymentID() {
         return paymentID;
     }
 
-    public String getPaymentStatus() {
+    public OrderStatus getPaymentStatus() {
         return paymentStatus;
     }
 
@@ -70,26 +74,26 @@ public class Order {
                 ", totalAmount=" + totalAmount +
                 ", orderDate=" + orderDate +
                 ", paymentID=" + paymentID +
-                ", paymentStatus='" + paymentStatus + '\'' +
+                ", paymentStatus=" + paymentStatus +
                 '}';
     }
 
     public static class Builder {
 
-        private int orderID;
-        private int userID;
+        private Long orderID;
+        private Long userID;
         private List<OrderItem> orderItems;
         private double totalAmount;
         private LocalDateTime orderDate;
-        private int paymentID;
-        private String paymentStatus;
+        private Long paymentID;
+        private OrderStatus paymentStatus;
 
-        public Builder setOrderID(int orderID) {
+        public Builder setOrderID(Long orderID) {
             this.orderID = orderID;
             return this;
         }
 
-        public Builder setUserID(int userID) {
+        public Builder setUserID(Long userID) {
             this.userID = userID;
             return this;
         }
@@ -109,12 +113,12 @@ public class Order {
             return this;
         }
 
-        public Builder setPaymentID(int paymentID) {
+        public Builder setPaymentID(Long paymentID) {
             this.paymentID = paymentID;
             return this;
         }
 
-        public Builder setPaymentStatus(String paymentStatus) {
+        public Builder setPaymentStatus(OrderStatus paymentStatus) {
             this.paymentStatus = paymentStatus;
             return this;
         }

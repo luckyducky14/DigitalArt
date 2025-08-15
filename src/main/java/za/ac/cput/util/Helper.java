@@ -24,20 +24,20 @@ public class Helper {
     public static boolean isValidQuantity(int quantity) {
         return quantity >0;
     }
-    public static boolean isValidOrderItemID(int orderItemID) {
+    public static boolean isValidOrderItemID(Long orderItemID) {
         return orderItemID > 0; // Typically starts from 1
     }
 
-    public static boolean isValidOrderID(int orderID) {
+    public static boolean isValidOrderID(Long orderID) {
         return orderID > 0; // Typically starts from 1
     }
 
     public static boolean isValidUnitPrice(double unitPrice) {
-        return unitPrice >= 0.0 && unitPrice <= 999999.99; // Reasonable price range
+        return unitPrice >= 0.0 && unitPrice <= 999999.99;
     }
 
     public static boolean isValidSubTotal(double subTotal) {
-        return subTotal >= 0.0 && subTotal <= 9999999.99; // Higher limit for summed values
+        return subTotal >= 0.0 && subTotal <= 9999999.99;
     }
 
     public static boolean isValidOrderItem(OrderItem orderItem) {
@@ -99,6 +99,9 @@ public class Helper {
 
     public static boolean isValidEntityId(int id) {
         return id > 0;
+    }
+    public static boolean isValidEntityId(Long id) {
+        return id != null && id > 0;
     }
 
     public static boolean isValidProductAssociation(Product product) {

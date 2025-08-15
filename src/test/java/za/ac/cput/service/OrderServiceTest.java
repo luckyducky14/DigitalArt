@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.domain.enums.OrderStatus;
 import za.ac.cput.repository.OrderRepository;
 
 import java.time.LocalDateTime;
@@ -34,17 +35,17 @@ public class OrderServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Clean DB before each test
+
         repository.deleteAll();
 
         testOrder = new Order.Builder()
-                .setOrderID(1)
-                .setUserID(101)
+                .setOrderID(1L)
+                .setUserID(101L)
                 .setOrderItems(Collections.emptyList())
                 .setTotalAmount(200.00)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(201)
-                .setPaymentStatus("Pending")
+                .setPaymentID(201L)
+                .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
         service.create(testOrder);
@@ -67,17 +68,17 @@ public class OrderServiceTest {
     void testUpdate() {
         Order updated = new Order.Builder()
                 .copy(testOrder)
-                .setPaymentStatus("Completed")
+                .setPaymentStatus(OrderStatus.COMPLETED)
                 .build();
 
         Order result = service.update(updated);
-        assertEquals("Completed", result.getPaymentStatus());
+        assertEquals(OrderStatus.COMPLETED, result.getPaymentStatus());
     }
 
     @Test
     void testDelete() {
-        boolean deleted = service.delete(testOrder.getOrderID());
-        assertTrue(deleted);
+        service.delete(testOrder.getOrderID());
+
         assertNull(service.read(testOrder.getOrderID()));
     }
 

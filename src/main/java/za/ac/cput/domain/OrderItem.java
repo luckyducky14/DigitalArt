@@ -17,7 +17,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemID;
-    private int orderID;
+    private Long orderID;
 
     @ManyToOne
     private Product product;
@@ -44,7 +44,7 @@ public class OrderItem {
         return itemID;
     }
 
-    public int getOrderID() {
+    public Long getOrderID() {
         return orderID;
     }
 
@@ -79,7 +79,7 @@ public class OrderItem {
     public static class Builder {
 
         private Long itemID;
-        private int orderID;
+        private Long orderID;
         private Product product;
         private int quantity;
         private double unitPrice;
@@ -90,7 +90,7 @@ public class OrderItem {
             return this;
         }
 
-        public Builder setOrderID(int orderID) {
+        public Builder setOrderID(Long orderID) {
             this.orderID = orderID;
             return this;
         }
