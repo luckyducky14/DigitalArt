@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import za.ac.cput.domain.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -30,13 +31,13 @@ public class OrderControllerTest {
     @Test
     void testCreateOrder() {
         Order order = new Order.Builder()
-                .setOrderID(101)
-                .setUserID(1)
+                .setOrderID(101L)
+                .setUserID(1L)
                 .setOrderItems(Collections.emptyList())
                 .setTotalAmount(150.0)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(1)
-                .setPaymentStatus("Pending")
+                .setPaymentID(1L)
+                .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
         ResponseEntity<Order> response = restTemplate.postForEntity(
@@ -45,6 +46,98 @@ public class OrderControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
+        assertEquals(101, response.getBody().getOrderID());
+    }
+
+    @Test
+    void testReadOrder() {
+
+        Order order = new Order.Builder()
+                .setOrderID(102L)
+                .setUserID(2L)
+                .setOrderItems(Collections.emptyList())
+                .setTotalAmount(200.0)
+                .setOrderDate(LocalDateTime.now())
+                .setPaymentID(2L)
+                .setPaymentStatus(OrderStatus.PENDING)
+                .build();
+
+        restTemplate.postForEntity(BASE_URL + "/create", order, Order.class);
+
+        // Read
+        ResponseEntity<Order> response = restTemplate.getForEntity(
+                BASE_URL + "/read/" + order.getOrderID(), Order.class
+        );
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(102, response.getBody().getOrderID());
+    }
+
+    @Test
+    void testUpdateOrder() {
+
+        Order order = new Order.Builder()
+                .setOrderID(103L)
+                .setUserID(3L)
+                .setOrderItems(Collections.emptyList())
+                .setTotalAmount(250.0)
+                .setOrderDate(LocalDateTime.now())
+                .setPaymentID(3L)
+                .setPaymentStatus(OrderStatus.PENDING)
+                .build();
+
+        restTemplate.postForEntity(BASE_URL + "/create", order, Order.class);
+
+
+        Order updatedOrder = new Order.Builder()
+                .copy(order)
+                .setPaymentStatus(OrderStatus.COMPLETED)
+                .build();
+
+        HttpEntity<Order> request = new HttpEntity<>(updatedOrder);
+        ResponseEntity<Order> response = restTemplate.exchange(
+                BASE_URL + "/update",
+                HttpMethod.PUT,
+                request,
+                Order.class
+        );
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(OrderStatus.COMPLETED , response.getBody().getPaymentStatus());
+    }
+
+    @Test
+    void testDeleteOrder() {
+
+        Order order = new Order.Builder()
+                .setOrderID(104L)
+                .setUserID(4L)
+                .setOrderItems(Collections.emptyList())
+                .setTotalAmount(300.0)
+                .setOrderDate(LocalDateTime.now())
+                .setPaymentID(4L)
+                .setPaymentStatus(OrderStatus.PENDING)
+                .build();
+
+        restTemplate.postForEntity(BASE_URL + "/create", order, Order.class);
+
+        ResponseEntity<Void> deleteResponse = restTemplate.exchange(
+                BASE_URL + "/delete/" + order.getOrderID(),
+                HttpMethod.DELETE,
+                null,
+               Void.class
+        );
+
+        assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());;
+
+
+        ResponseEntity<Order> readResponse = restTemplate.getForEntity(
+                BASE_URL + "/read/" + order.getOrderID(),
+                Order.class
+        );
+        assertNull(readResponse.getBody());
     }
 
     @Test
@@ -57,5 +150,3 @@ public class OrderControllerTest {
         assertNotNull(response.getBody());
     }
 }
-
-

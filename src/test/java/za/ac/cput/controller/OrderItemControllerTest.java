@@ -28,7 +28,7 @@ public class OrderItemControllerTest {
     void create() {
         orderItem = new OrderItem.Builder()
                 .setItemID(1L)
-                .setOrderID(101)
+                .setOrderID(101L)
                 .setQuantity(2)
                 .setUnitPrice(100.00)
                 .calculateSubTotal()

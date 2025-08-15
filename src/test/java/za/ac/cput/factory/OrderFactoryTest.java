@@ -3,6 +3,7 @@ package za.ac.cput.factory;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,11 +15,11 @@ class OrderFactoryTest {
     @Test
     void testCreateOrder() {
 
-        int orderID = 1;
-        int userID = 100;
+        Long orderID = 1L;
+        Long userID = 100L;
 
         OrderItem item1 = new OrderItem.Builder()
-                .setItemID(1)
+                .setItemID(1L)
                 .setOrderID(orderID)
                 .setQuantity(2)
                 .setUnitPrice(10.99)
@@ -26,7 +27,7 @@ class OrderFactoryTest {
                 .build();
 
         OrderItem item2 = new OrderItem.Builder()
-                .setItemID(2)
+                .setItemID(2L)
                 .setOrderID(orderID)
                 .setQuantity(1)
                 .setUnitPrice(5.99)
@@ -36,8 +37,8 @@ class OrderFactoryTest {
         List<OrderItem> orderItems = List.of(item1, item2);
         double totalAmount = item1.getSubTotal() + item2.getSubTotal();
         LocalDateTime orderDate = LocalDateTime.now();
-        int paymentID = 500;
-        String paymentStatus = "PAID";
+        Long paymentID = 500L;
+        OrderStatus paymentStatus = OrderStatus.COMPLETED;
 
         Order order = OrderFactory.createOrder(
                 orderID,
@@ -68,11 +69,11 @@ class OrderFactoryTest {
 
     @Test
     void testCreateOrderWithSingleItem() {
-        int orderID = 2;
-        int userID = 101;
+        Long orderID = 2L;
+        Long userID = 101L;
 
         OrderItem item = new OrderItem.Builder()
-                .setItemID(3)
+                .setItemID(3L)
                 .setOrderID(orderID)
                 .setQuantity(1)
                 .setUnitPrice(15.50)
@@ -82,8 +83,8 @@ class OrderFactoryTest {
         List<OrderItem> orderItems = List.of(item);
         double totalAmount = item.getSubTotal();
         LocalDateTime orderDate = LocalDateTime.of(2025, 5, 15, 10, 30);
-        int paymentID = 501;
-        String paymentStatus = "PENDING";
+        Long paymentID = 501L;
+        OrderStatus paymentStatus = OrderStatus.PENDING;
 
         Order order = OrderFactory.createOrder(
                 orderID,
@@ -114,14 +115,14 @@ class OrderFactoryTest {
 
     @Test
     void testCreateOrderWithEmptyItems() {
-        int orderID = 3;
-        int userID = 102;
+        Long orderID = 3L;
+        Long userID = 102L;
 
         List<OrderItem> orderItems = List.of();
         double totalAmount = 0.0;
         LocalDateTime orderDate = LocalDateTime.now();
-        int paymentID = 502;
-        String paymentStatus = "FAILED";
+        Long paymentID = 502L;
+        OrderStatus paymentStatus = OrderStatus.CANCELLED;
 
         Order order = OrderFactory.createOrder(
                 orderID,
