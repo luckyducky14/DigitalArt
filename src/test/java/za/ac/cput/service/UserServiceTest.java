@@ -23,7 +23,7 @@ class UserServiceTest {
 
     @BeforeAll
     static void setUp() {
-        user = UserFactory.createUser("John", "Doe", "john.doe@example.com", "Password123");
+        user = UserFactory.createUser("John", "Doe", "Password123");
     }
 
     @Test
@@ -31,7 +31,7 @@ class UserServiceTest {
     void a_create() {
         User created = service.create(user);
         assertNotNull(created);
-        user = created; // update static user with DB-assigned ID
+        user = created;
         System.out.println("Created: " + created);
     }
 

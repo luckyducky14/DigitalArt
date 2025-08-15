@@ -22,7 +22,6 @@ public class User {
     private Long userId;
     private String lastName;
     private String firstName;
-    private String email;
     private String password;
     private LocalDateTime lastLogin;
     private LocalDate createDate;
@@ -38,7 +37,6 @@ public class User {
         this.userId = builder.userId;
         this.lastName = builder.lastName;
         this.firstName = builder.firstName;
-        this.email = builder.email;
         this.password = builder.password;
         this.role = builder.role;
         this.lastLogin = builder.lastLogin;
@@ -50,7 +48,6 @@ public class User {
     public Long getUserId() { return userId; }
     public String getLastName() { return lastName; }
     public String getFirstName() { return firstName; }
-    public String getEmail() { return email; }
     public String getPassword() { return password; }
     public Role getRole() { return role; }
     public LocalDateTime getLastLogin() { return lastLogin; }
@@ -62,7 +59,6 @@ public class User {
                 "userId=" + userId +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", lastLogin=" + lastLogin +
@@ -75,7 +71,6 @@ public class User {
         private Long userId; //long
         private String lastName;
         private String firstName;
-        private String email;
         private String password;
         private Role role;
         private LocalDateTime lastLogin;
@@ -91,10 +86,6 @@ public class User {
         }
         public Builder setFirstName(String firstName) {
             this.firstName = firstName;
-            return this;
-        }
-        public Builder setEmail(String email) {
-            this.email = email;
             return this;
         }
         public Builder setPassword(String password) {
@@ -117,7 +108,6 @@ public class User {
             this.userId = user.userId;
             this.lastName = user.lastName;
             this.firstName = user.firstName;
-            this.email = user.email; //Remove
             this.password = user.password;
             this.role = user.role;
             this.lastLogin = user.lastLogin;

@@ -24,7 +24,7 @@ class UserControllerTest {
 
     @BeforeAll
     public static void setup() {
-        user = UserFactory.createUser("Alice", "Smith", "alice.smith@example.com", "Alice@2025");
+        user = UserFactory.createUser("Alice", "Smith", "Alice@2025");
     }
 
     @Test
