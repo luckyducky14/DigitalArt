@@ -9,9 +9,9 @@ import java.util.List;
 public class Order {
 
     @Id
-    private int orderID;
+    private int orderID; // Keep int to match OrderItemFactory
 
-    private int userID;
+    private int userID; // Keep int to match OrderItemFactory
     private double totalAmount;
     private LocalDateTime orderDate;
     private int paymentID;
@@ -21,11 +21,9 @@ public class Order {
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
     private List<OrderItem> orderItems;
 
-    protected Order() {
+    protected Order() {}
 
-    }
-
-    private Order(Builder builder) {
+    public Order(Builder builder) {
         this.orderID = builder.orderID;
         this.userID = builder.userID;
         this.orderItems = builder.orderItems;

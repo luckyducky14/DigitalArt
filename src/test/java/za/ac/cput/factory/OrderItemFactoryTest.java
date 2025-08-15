@@ -15,41 +15,77 @@ import za.ac.cput.factory.OrderItemFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderItemFactoryTest {
-    private final OrderItemFactory factory = new OrderItemFactory();
-    private final Product testProduct = new Product.Builder()
-            .setProductID("prod-001")
-            .setTitle("Test Product")
-            .setPrice(10.99)
-            .build();
 
     @Test
-    void testCreateValidOrderItem() {
-        OrderItem item = factory.create(100, testProduct, 2, 10.99);
+    void createOrderItem_ValidParameters_ShouldCreateSuccessfully() {
+        Product product = new Product.Builder()
+                .setProductID("P001")
+                .setTitle("Test Product")
+                .setDescription("Sample description")
+                .setPrice(50.0)
+                .setCategoryID("C1")
+                .build();
 
-        assertNotNull(item);
-        assertEquals(100, item.getOrderID());
-        assertEquals(testProduct, item.getProduct());
-        assertEquals(2, item.getQuantity());
-        assertEquals(10.99, item.getUnitPrice(), 0.001);
-        assertEquals(21.98, item.getSubTotal(), 0.001);
+        OrderItem orderItem = OrderItemFactory.createOrderItem(1, product, 2, 50.0);
+
+        assertNotNull(orderItem, "OrderItem should not be null");
+        assertEquals(2, orderItem.getQuantity(), "Quantity should match");
+        assertEquals(50.0, orderItem.getUnitPrice(), "Unit price should match");
+        assertEquals(100.0, orderItem.getSubTotal(), "SubTotal should be calculated correctly");
+        assertEquals(product, orderItem.getProduct(), "Product should match the one provided");
     }
 
     @Test
-    void testCreateWithInvalidProduct() {
-        Executable action = () -> factory.create(100, null, 2, 10.99);
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, action);
-        assertEquals("Invalid Product association", exception.getMessage());
+    void createOrderItem_InvalidOrderID_ShouldThrowException() {
+        Product product = new Product.Builder()
+                .setProductID("P001")
+                .setTitle("Test Product")
+                .setDescription("Sample description")
+                .setPrice(50.0)
+                .setCategoryID("C1")
+                .build();
+
+        assertThrows(IllegalArgumentException.class, () ->
+                        OrderItemFactory.createOrderItem(-1, product, 2, 50.0),
+                "Negative orderID should throw IllegalArgumentException");
     }
 
     @Test
-    void testUpdateQuantity() {
-        OrderItem original = factory.create(100, testProduct, 2, 10.99);
-        OrderItem updated = factory.updateQuantity(original, 5);
+    void createOrderItem_NullProduct_ShouldThrowException() {
+        assertThrows(IllegalArgumentException.class, () ->
+                        OrderItemFactory.createOrderItem(1, null, 2, 50.0),
+                "Null product should throw IllegalArgumentException");
+    }
 
-        assertEquals(5, updated.getQuantity());
-        assertEquals(54.95, updated.getSubTotal(), 0.001);
+    @Test
+    void createOrderItem_InvalidQuantity_ShouldThrowException() {
+        Product product = new Product.Builder()
+                .setProductID("P001")
+                .setTitle("Test Product")
+                .setDescription("Sample description")
+                .setPrice(50.0)
+                .setCategoryID("C1")
+                .build();
+
+        assertThrows(IllegalArgumentException.class, () ->
+                        OrderItemFactory.createOrderItem(1, product, -5, 50.0),
+                "Negative quantity should throw IllegalArgumentException");
+    }
+
+    @Test
+    void createOrderItem_InvalidUnitPrice_ShouldThrowException() {
+        Product product = new Product.Builder()
+                .setProductID("P001")
+                .setTitle("Test Product")
+                .setDescription("Sample description")
+                .setPrice(50.0)
+                .setCategoryID("C1")
+                .build();
+
+        assertThrows(IllegalArgumentException.class, () ->
+                        OrderItemFactory.createOrderItem(1, product, 2, -10.0),
+                "Negative unit price should throw IllegalArgumentException");
     }
 }
-
 
 

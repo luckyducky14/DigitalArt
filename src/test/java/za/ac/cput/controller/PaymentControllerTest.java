@@ -49,7 +49,7 @@ class PaymentControllerTest {
 
     @Test
     void update() {
-        Payment updatedPayment = new Payment.Builder().copy(payment).setPaymentID("").setAmount(400).build();
+        Payment updatedPayment = new Payment.Builder().copy(payment).setPaymentID(123L).setAmount(400).build();
         String url = BASE_URL + "/update";
         this.restTemplate.put(url, updatedPayment);
 

@@ -30,7 +30,7 @@ class CartItemControllerTest {
     @BeforeAll
     public static void setUp() {
          Cart cart = new Cart.Builder()
-                .setCartID("C123")
+                .setCartID(123L)
                 .build();
 
          Product product = new Product.Builder()

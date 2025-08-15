@@ -16,7 +16,8 @@ import java.util.List;
 public class Cart {
 
     @Id
-    private String cartID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Long cartID; // put it as a Long
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userID", referencedColumnName = "userID")
@@ -33,7 +34,7 @@ public class Cart {
         this.cartItems = builder.cartItems;
     }
 
-    public String getCartID() {
+    public Long getCartID() {
         return cartID;
     }
 
@@ -56,11 +57,11 @@ public class Cart {
 
     public static class Builder{
 
-        private String cartID;
+        private Long cartID;
         private User userID;
         private List<CartItem> cartItems;
 
-        public Builder setCartID(String cartID) {
+        public Builder setCartID(Long cartID) {
             this.cartID = cartID;
             return this;
         }

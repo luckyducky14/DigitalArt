@@ -8,13 +8,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment, String> {
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findByStatus(String status);
 
     List<Payment> findByPaymentDate(LocalDate paymentDate);
     List<Payment> findByMethod(String method);
     List<Payment> findByAmount(double amount);
-    List<Payment> findByPaymentID(String paymentID);
+    List<Payment> findByPaymentID(Long paymentID);
 
 }

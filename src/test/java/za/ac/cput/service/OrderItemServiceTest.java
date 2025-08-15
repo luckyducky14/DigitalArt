@@ -5,52 +5,54 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Cart;
-import za.ac.cput.domain.CartItem;
+import za.ac.cput.domain.Order;
+import za.ac.cput.domain.OrderItem;
 import za.ac.cput.domain.Product;
-import za.ac.cput.factory.CartItemFactory;
+import za.ac.cput.factory.OrderItemFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
-class CartItemServiceTest {
+class OrderItemServiceTest {
+
     @Autowired
-    private ICartItemService service;
-    static Cart cart = new Cart.Builder()
-            .setCartID(123L)
+    private IOrderItemService service;
+
+    static Order order = new Order.Builder()
+            .setOrderID(123)
             .build();
 
     static Product product = new Product.Builder()
             .setProductID("P456")
             .build();
 
-private final CartItem cartItem = CartItemFactory.createCartItem(cart,product,10);
+    private final OrderItem orderItem = OrderItemFactory.createOrderItem(order.getOrderID(), product,5,19.99);
 
-    
-CartItemServiceTest(ICartItemService service){this.service=service;}
-
+    OrderItemServiceTest(IOrderItemService service) {
+        this.service = service;
+    }
 
     @Test
     void a_create() {
-        CartItem newCartItem = service.create(cartItem);
-        assertNotNull(newCartItem);
-        System.out.println(newCartItem);
+        OrderItem newOrderItem = service.create(orderItem);
+        assertNotNull(newOrderItem);
+        System.out.println(newOrderItem);
     }
-
-    ;
 
     @Test
     void b_read() {
-
-        CartItem read = service.read(cartItem.getCartItemID());
+        OrderItem read = service.read(orderItem.getItemID());
         assertNotNull(read);
         System.out.println(read);
     }
 
     @Test
     void c_update() {
-        CartItem newCartItem = new CartItem.Builder().copy(cartItem).setQuantity(50).build();
-        CartItem updated = service.update(newCartItem);
+        OrderItem newOrderItem = new OrderItem.Builder()
+                .copy(orderItem)
+                .setQuantity(10)
+                .build();
+        OrderItem updated = service.update(newOrderItem);
         assertNotNull(updated);
         System.out.println(updated);
     }
@@ -58,6 +60,5 @@ CartItemServiceTest(ICartItemService service){this.service=service;}
     @Test
     void d_getAll() {
         System.out.println(service.getAll());
-
     }
 }

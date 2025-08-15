@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemID;
+    private Long itemID;
     private int orderID;
 
     @ManyToOne
@@ -40,7 +40,7 @@ public class OrderItem {
         this.subTotal = builder.subTotal;
     }
 
-    public int getItemID() {
+    public Long getItemID() {
         return itemID;
     }
 
@@ -78,14 +78,14 @@ public class OrderItem {
 
     public static class Builder {
 
-        private int itemID;
+        private Long itemID;
         private int orderID;
         private Product product;
         private int quantity;
         private double unitPrice;
         private double subTotal;
 
-        public Builder setItemID(int itemID) {
+        public Builder setItemID(Long itemID) {
             this.itemID = itemID;
             return this;
         }

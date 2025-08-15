@@ -14,15 +14,19 @@ import java.util.List;
 
 public class CartFactory {
 
-    public static Cart createCart(String cartID, User userID, List<CartItem> cartItems) {
-        if (Helper.isNullOrEmpty(cartID)) {
-            return null;
-        }
+    public static Cart createCart(List<CartItem> cartItems) {
+//        if (Helper.isNullOrEmpty(cartItems)) {
+//            return null;
+//        }
+//        if (quantity < 0){
+//            return null;
+//        }
+//        if (cartIterms <= 0){
+//            return null;
+//        }
 
         return new Cart.Builder()
                 .setCartItem(cartItems)
-                .setCartID(cartID)
-                .setUserID(userID)
                 .build();
     }
 }

@@ -7,28 +7,35 @@ Author: Bekithemba Mrwetyana (222706066)
 Date: 04 May 2025
 */
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import za.ac.cput.domain.enums.PaymentMethod;
+import za.ac.cput.domain.enums.PaymentStatus;
 
 @Entity
 @Table (name = "payment")
 public class Payment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "paymentID")
-    private String paymentID;
-    @Column(name = "paymentDate")
+    private Long paymentID;
+
     private LocalDate paymentDate;
-    @Column(name = "amount")
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
     private double amount;
-    @Column(name = "status")
-    private String status;
-    @Column(name = "method")
-    private String method;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentMethod paymentMethod;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentStatus paymentStatus;
 
     protected Payment() {
     }
@@ -37,11 +44,9 @@ public class Payment {
         this.paymentID = builder.paymentID;
         this.paymentDate = builder.paymentDate;
         this.amount = builder.amount;
-        this.status = builder.status;
-        this.method = builder.method;
     }
 
-    public String getPaymentID() {
+    public Long getPaymentID() {
         return paymentID;
     }
 
@@ -53,34 +58,22 @@ public class Payment {
         return paymentDate;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
     @Override
     public String toString() {
         return "Payment{" +
                 "paymentID=" + paymentID +
                 ", paymentDate=" + paymentDate +
                 ", amount=" + amount +
-                ", status='" + status + '\'' +
-                ", method='" + method + '\'' +
                 '}';
     }
 
     public static class Builder{
 
-        private String paymentID;
+        private Long paymentID;
         private LocalDate paymentDate;
         private double amount;
-        private String status;
-        private String method;
 
-        public Builder setPaymentID(String paymentID) {
+        public Builder setPaymentID(Long paymentID) {
             this.paymentID = paymentID;
             return this;
         }
@@ -95,22 +88,10 @@ public class Payment {
             return this;
         }
 
-        public Builder setStatus(String status) {
-            this.status = status;
-            return this;
-        }
-
-        public Builder setMethod(String method) {
-            this.method = method;
-            return this;
-        }
-
         public Builder copy(Payment payment){
             this.paymentID = payment.paymentID;
             this.paymentDate = payment.paymentDate;
             this.amount = payment.amount;
-            this.status = payment.status;
-            this.method = payment.method;
             return this;
         }
         public Payment build(){

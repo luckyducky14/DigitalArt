@@ -127,11 +127,8 @@ public class Helper {
     }
     public static boolean isValidPayment(Payment payment) {
         return payment != null &&
-                isValidPaymentID(payment.getPaymentID()) &&
                 isValidPaymentDate(payment.getPaymentDate()) &&
-                isValidAmount(payment.getAmount()) &&
-                isValidStatus(payment.getStatus()) &&
-                isValidMethod(payment.getMethod());
+                isValidAmount(payment.getAmount());
     }
 
     // Cart validations
