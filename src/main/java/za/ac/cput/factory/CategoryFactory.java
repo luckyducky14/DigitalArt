@@ -15,7 +15,7 @@ public class CategoryFactory {
 
     public static Category createCategory(String name, String description) {
 
-        String categoryId = Helper.generateId();
+        //String categoryId = Helper.generateId();
 
        if(Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description)) {
            return null;
@@ -23,7 +23,6 @@ public class CategoryFactory {
 
 
         return new Category.Builder()
-                .setCategoryID(categoryId)
                 .setName(name)
                 .setDescription(description)
                 .build();
