@@ -10,10 +10,11 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 
-    Public final UserRepository repository;
+    private final UserRepository repository;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User read(Integer id) {
+    public User read(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -32,8 +33,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void delete(Long id) {
-        this.repository.deleteById(id)
+    public boolean delete(Long id) {
+        repository.deleteById(id);
+        return false;
     }
 
     @Override
