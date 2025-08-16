@@ -36,7 +36,7 @@ public class CartItemController {
     public CartItem update(@RequestBody CartItem cartItem) {return service.update(cartItem);}
 
     @DeleteMapping("/delete/{cartItemId}")
-    public boolean delete(@PathVariable int cartItemId) {return service.delete(cartItemId);}
+    public void delete(@PathVariable int cartItemId) {service.delete(cartItemId);}
 
     @GetMapping("/getAll")
     public List<CartItem> getAll() {return service.getAll();}

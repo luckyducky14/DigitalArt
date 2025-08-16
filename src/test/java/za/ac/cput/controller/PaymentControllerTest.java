@@ -2,6 +2,7 @@ package za.ac.cput.controller;
 
 import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.Payment;
+import za.ac.cput.domain.enums.PaymentStatus;
 import za.ac.cput.factory.PaymentFactory;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class PaymentControllerTest {
     private static final String BASE_URL = "https://localhost:8080/payment";
 
     public static void setup(){
-        payment = PaymentFactory.createPayment(LocalDate.of(2025, 8, 2), 400, "Pending", "Credit Card");
+        payment = PaymentFactory.createPayment(LocalDate.of(2025, 8, 2), 400, PaymentStatus.PENDING);
     }
 
     @Test

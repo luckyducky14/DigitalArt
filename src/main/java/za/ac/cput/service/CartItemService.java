@@ -40,8 +40,8 @@ public class CartItemService implements ICartItemService {
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public void delete(Integer integer) {
+        cartItemRepository.deleteById(integer);
     }
 
     @Override

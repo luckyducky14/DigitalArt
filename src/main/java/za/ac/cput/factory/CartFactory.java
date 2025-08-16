@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CartFactory {
 
-    public static Cart createCart(List<CartItem> cartItems) {
+    public static Cart createCart(User user, List<CartItem> cartItems) {
 //        if (Helper.isNullOrEmpty(cartItems)) {
 //            return null;
 //        }
@@ -24,6 +24,11 @@ public class CartFactory {
 //        if (cartIterms <= 0){
 //            return null;
 //        }
+        // Basic validation
+
+        if (cartItems == null) {
+            throw new IllegalArgumentException("Cart items list cannot be null.");
+        }
 
         return new Cart.Builder()
                 .setCartItem(cartItems)
