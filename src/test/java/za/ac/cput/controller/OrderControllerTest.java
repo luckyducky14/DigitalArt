@@ -32,11 +32,10 @@ public class OrderControllerTest {
     void testCreateOrder() {
         Order order = new Order.Builder()
                 .setOrderID(101L)
-                .setUserID(1L)
-                .setOrderItems(Collections.emptyList())
+                .setOrderAmount(120.0)
                 .setTotalAmount(150.0)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(1L)
+                .setCartItem( Collections.emptyList())
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
@@ -54,11 +53,11 @@ public class OrderControllerTest {
 
         Order order = new Order.Builder()
                 .setOrderID(102L)
-                .setUserID(2L)
-                .setOrderItems(Collections.emptyList())
+
+                .setCartItem(Collections.emptyList())
                 .setTotalAmount(200.0)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(2L)
+                .setOrderAmount(150.0)
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
@@ -79,11 +78,11 @@ public class OrderControllerTest {
 
         Order order = new Order.Builder()
                 .setOrderID(103L)
-                .setUserID(3L)
-                .setOrderItems(Collections.emptyList())
+
+                .setCartItem(Collections.emptyList())
                 .setTotalAmount(250.0)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(3L)
+                .setOrderAmount(200.0)
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
@@ -92,7 +91,7 @@ public class OrderControllerTest {
 
         Order updatedOrder = new Order.Builder()
                 .copy(order)
-                .setPaymentStatus(OrderStatus.COMPLETED)
+                .setPaymentStatus(OrderStatus.SHIPPED)
                 .build();
 
         HttpEntity<Order> request = new HttpEntity<>(updatedOrder);
@@ -105,7 +104,7 @@ public class OrderControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(OrderStatus.COMPLETED , response.getBody().getPaymentStatus());
+        assertEquals(OrderStatus.SHIPPED , response.getBody().getPaymentStatus());
     }
 
     @Test
@@ -113,11 +112,10 @@ public class OrderControllerTest {
 
         Order order = new Order.Builder()
                 .setOrderID(104L)
-                .setUserID(4L)
-                .setOrderItems(Collections.emptyList())
+                .setCartItem(Collections.emptyList())
                 .setTotalAmount(300.0)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(4L)
+                .setOrderAmount(200.0)
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 

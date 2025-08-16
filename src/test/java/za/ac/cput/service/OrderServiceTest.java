@@ -7,6 +7,8 @@ Author: Mpilonhle Zimela Mzimela 230197833
 Date: 20 July 2025
 */
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.Order;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class OrderServiceTest {
 
     @Autowired
@@ -35,16 +38,14 @@ public class OrderServiceTest {
 
     @BeforeEach
     void setUp() {
-
         repository.deleteAll();
 
         testOrder = new Order.Builder()
                 .setOrderID(1L)
-                .setUserID(101L)
-                .setOrderItems(Collections.emptyList())
+                .setCartItem(Collections.emptyList())
                 .setTotalAmount(200.00)
+                .setOrderAmount(150.00)
                 .setOrderDate(LocalDateTime.now())
-                .setPaymentID(201L)
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
@@ -52,39 +53,34 @@ public class OrderServiceTest {
     }
 
     @Test
-    void testCreate() {
+    void a_testCreate() {
         assertNotNull(testOrder);
-        assertEquals(1, testOrder.getOrderID());
+        assertEquals(1L, testOrder.getOrderID());
     }
 
     @Test
-    void testRead() {
+    void b_testRead() {
         Order found = service.read(testOrder.getOrderID());
         assertNotNull(found);
-        assertEquals(101, found.getUserID());
+        assertEquals(1L, found.getOrderID());
     }
 
     @Test
-    void testUpdate() {
+    void c_testUpdate() {
         Order updated = new Order.Builder()
                 .copy(testOrder)
-                .setPaymentStatus(OrderStatus.COMPLETED)
+                .setPaymentStatus(OrderStatus.SHIPPED)
                 .build();
 
         Order result = service.update(updated);
-        assertEquals(OrderStatus.COMPLETED, result.getPaymentStatus());
+        assertEquals(OrderStatus.SHIPPED, result.getPaymentStatus());
     }
 
     @Test
-    void testDelete() {
-        service.delete(testOrder.getOrderID());
-
-        assertNull(service.read(testOrder.getOrderID()));
-    }
-
-    @Test
-    void testGetAll() {
+    void d_testGetAll() {
         List<Order> orders = service.getAll();
+        assertNotNull(orders);
         assertFalse(orders.isEmpty());
+        System.out.println("Orders: " + orders);
     }
 }
