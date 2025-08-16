@@ -6,15 +6,14 @@ Author: Abethu Ngxitho 221297820
 Date: 07 May 2025
 */
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "category")
 public class Category {
    @Id
-    private String categoryID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long categoryId;
     private String name;
     private String description;
 
@@ -23,13 +22,13 @@ public class Category {
     }
 
     private Category(Builder builder) {
-        this.categoryID = builder.categoryID;
+        this.categoryId = builder.categoryId;
         this.name = builder.name;
         this.description = builder.description;
     }
 
-    public String getCategoryID() {
-        return categoryID;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
     public String getName() {
@@ -43,18 +42,18 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "categoryID='" + categoryID + '\'' +
+                "categoryId='" + categoryId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
     public static class Builder{
-        private String categoryID;
+        private Long categoryId;
         private String name;
         private String description;
 
-        public Builder setCategoryID(String categoryID) {
-            this.categoryID = categoryID;
+        public Builder setCategoryId(Long categoryId) {
+            this.categoryId = categoryId;
             return this;
         }
 
@@ -69,7 +68,7 @@ public class Category {
         }
 
         public Builder copy(Category category) {
-            this.categoryID = category.categoryID;
+            this.categoryId = category.categoryId;
             this.name = category.name;
             this.description = category.description;
             return this;

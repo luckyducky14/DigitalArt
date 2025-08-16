@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserFactoryTest {
 
-    private static User u1 = UserFactory.createUser(202501, "Nana", "Lucas", "", "");
-    private static User u2 = UserFactory.createUser(202502, "Mbali", "Precious", "PreciousMbali@gmail.com", "Mbali@20002");
-    private static User u3 = UserFactory.createUser(202503, "Steers", "Goodman", "goodman.com", "Steers@9120");
+    private static User u1 = UserFactory.createUser("Nana", "Luvo", "Luv@2025");
+    private static User u2 = UserFactory.createUser("Precious", "Mbali", "Mbali@20002");
+    private static User u3 = UserFactory.createUser("Goodman", "Steers", "Steers@9120");
 
 
     @Test

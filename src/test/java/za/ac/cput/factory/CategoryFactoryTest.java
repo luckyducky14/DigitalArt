@@ -8,37 +8,36 @@ Date: 18 May 2025
 
 import za.ac.cput.domain.Category;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.factory.CategoryFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CategoryFactoryTest {
 
-    private static Category category1 = CategoryFactory.createCategory("Potraits" , "Digital art showing a person's face or expression");
+    private static final Category category1 = CategoryFactory.createCategory("Potraits" , "Digital art showing a person's face or expression");
 
-    private static Category category2 = CategoryFactory.createCategory(null , "Digital art using shapes and colors");
+    private static final Category category2 = CategoryFactory.createCategory(null , "Digital art using shapes and colors");
 
-    private static Category category3 = CategoryFactory.createCategory("Wall Art" , "");
+    private static final Category category3 = CategoryFactory.createCategory("Wall Art" , "");
 
     @Test
     void createCategory() {
         assertNotNull(category1);
-        System.out.println(category1.toString());
+        System.out.println(category1);
     }
 
     @Test
     void createCategoryWithNullName() {
         assertNotNull(category2);
-        System.out.println(category2.toString());
+        System.out.println(category2);
     }
 
-     @Test
+    @Test
     void createCategoryThatWillFail() {
         //fail();
-         assertNotNull(category3);
-         System.out.println(category3.toString());
-     }
+        assertNotNull(category3);
+        System.out.println(category3);
+    }
 
 
 }

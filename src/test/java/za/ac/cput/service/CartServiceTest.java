@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.domain.Cart;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.domain.CartItem;
+import za.ac.cput.domain.User;
+import za.ac.cput.factory.CartFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +22,18 @@ class CartServiceTest {
 
     private static Cart cart;
 
+    @BeforeEach
+    void setup() {
+        User user = new User.Builder()
+                .setUserId(1L)
+                .setFirstName("Alex")
+                .setLastName("McConnor")
+                .build();
+
+        List<CartItem> cartItems = new ArrayList<>();
+
+        cart = CartFactory.createCart(user, cartItems);
+    }
     @Test
     @Order(1)
     void create() {

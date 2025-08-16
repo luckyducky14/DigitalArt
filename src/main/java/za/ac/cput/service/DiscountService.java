@@ -9,10 +9,9 @@ import za.ac.cput.service.DiscountService;
 import java.util.List;
 
 @Service
-public class DiscountService {
+public class DiscountService implements IDiscountService{
 
     @Autowired
-    private static IDiscountService service;
     private DiscountRepository repository;
 
     public Discount create(Discount discount) {
