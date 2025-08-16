@@ -15,7 +15,7 @@ Date: 03 August 2025
 import java.util.List;
 
 @RestController
-@RequestMapping("/CartItem")
+@RequestMapping("/cart_Item")
 public class CartItemController {
 
     private CartItemService service;
@@ -30,13 +30,13 @@ public class CartItemController {
     }
 
     @GetMapping("/read/{cartItemId}")
-    public CartItem read(@PathVariable int cartItemId) {return service.read(cartItemId);}
+    public CartItem read(@PathVariable Long cartItemId) {return service.read(cartItemId);}
 
     @PutMapping("/update")
     public CartItem update(@RequestBody CartItem cartItem) {return service.update(cartItem);}
 
-    @DeleteMapping("/delete/{cartItemId}")
-    public boolean delete(@PathVariable int cartItemId) {return service.delete(cartItemId);}
+    @DeleteMapping("/delete/{cartItemId}")// change to void
+    public void delete(@PathVariable Long cartItemId) {service.delete(cartItemId);}
 
     @GetMapping("/getAll")
     public List<CartItem> getAll() {return service.getAll();}
