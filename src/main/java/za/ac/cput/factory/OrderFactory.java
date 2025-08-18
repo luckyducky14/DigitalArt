@@ -1,24 +1,32 @@
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.CartItem;
 import za.ac.cput.domain.Order;
-import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderFactory {
 
-    public static Order createOrder(int orderID, int userID, List<OrderItem> orderItems,
-                                    double totalAmount, LocalDateTime orderDate,
-                                    int paymentID, String paymentStatus) {
+    public static Order createOrder(Long orderID,
+                                    List<CartItem> cartItems,
+                                    double totalAmount,
+                                    LocalDateTime orderDate,
+                                    double orderAmount,
+                                    OrderStatus paymentStatus) {
+        if (orderAmount < 0 || totalAmount < 0) {
+            return null;
+        }
+
         return new Order.Builder()
                 .setOrderID(orderID)
-                .setUserID(userID)
-                .setOrderItems(orderItems)
+                .setCartItem(cartItems)
                 .setTotalAmount(totalAmount)
                 .setOrderDate(orderDate)
-                .setPaymentID(paymentID)
+                .setOrderAmount(orderAmount)
                 .setPaymentStatus(paymentStatus)
                 .build();
     }
 }
+

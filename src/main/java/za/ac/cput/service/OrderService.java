@@ -31,7 +31,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order read(Integer orderID) {
+    public Order read(Long orderID) {
         return repository.findById(orderID).orElse(null);
     }
 
@@ -41,13 +41,14 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean delete(Integer orderID) {
-        if (repository.existsById(orderID)) {
-            repository.deleteById(orderID);
-            return true;
-        }
-        return false;
+    public void delete(Long orderID) {
+        repository.deleteById(orderID);
+
     }
+
+
+
+
 
     @Override
     public List<Order> getAll() {

@@ -8,7 +8,7 @@ import za.ac.cput.service.OrderService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService service;
@@ -24,19 +24,16 @@ public class OrderController {
     }
 
     @GetMapping("/read/{id}")
-    public Order read(@PathVariable int id) {
+    public Order read(@PathVariable Long id) {
         return service.read(id);
     }
 
-    @PutMapping("/update")
-    public Order update(@RequestBody Order order) {
+    @PutMapping("/update/{id}")
+    public Order update(@PathVariable Long id , @RequestBody Order order) {
         return service.update(order);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable int id) {
-        return service.delete(id);
-    }
+
 
     @GetMapping("/getAll")
     public List<Order> getAll() {

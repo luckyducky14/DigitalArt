@@ -7,6 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import za.ac.cput.domain.CartItem;
+import za.ac.cput.domain.User;
+import za.ac.cput.factory.CartFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +27,21 @@ class CartControllerTest {
 
     private static final String BASE_URL = "https://localhost:8080/cart";
 
-    public static void setup(){}
+    @BeforeAll
+    public static void setup() {
+        // Create a mock user
+        User user = new User.Builder()
+                .setUserId(1L)
+                .setFirstName("John")
+                .setLastName("Doe")
+                .setPassword("password123")
+                .build();
+
+        List<CartItem> cartItems = new ArrayList<>();
+
+        cart = CartFactory.createCart(user, cartItems);
+    }
+
 
     @Test
     @Order(1)

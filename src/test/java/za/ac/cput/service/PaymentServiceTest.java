@@ -1,12 +1,10 @@
 package za.ac.cput.service;
 
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import za.ac.cput.domain.Payment;
+import za.ac.cput.domain.enums.PaymentStatus;
 import za.ac.cput.factory.PaymentFactory;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
@@ -20,8 +18,15 @@ class PaymentServiceTest {
     @Autowired
     private static IPaymentService service;
 
-    private Payment payment = PaymentFactory.createPayment(LocalDate.of(2025, 8, 2), 400);
+    private Payment payment;
 
+    @BeforeEach
+    void setup() {
+        payment = PaymentFactory.createPayment(
+                LocalDate.of(2025, 8, 2),
+                400, PaymentStatus.COMPLETED
+        );
+    }
     @Test
     @Order(1)
     void create() {

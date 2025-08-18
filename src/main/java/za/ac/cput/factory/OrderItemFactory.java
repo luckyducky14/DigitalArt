@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderItemFactory {
 
-    public static OrderItem createOrderItem(int orderID, Product product, int quantity, double unitPrice) {
+    public static OrderItem createOrderItem(Long orderID, Product product, int quantity, double unitPrice) {
         if (!Helper.isValidOrderID(orderID) || !Helper.isValidProductAssociation(product) ||
                 !Helper.isValidQuantity(quantity) || !Helper.isValidUnitPrice(unitPrice)) {
             throw new IllegalArgumentException("Invalid parameters for creating OrderItem");

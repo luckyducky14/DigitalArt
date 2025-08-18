@@ -1,8 +1,10 @@
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
+import za.ac.cput.domain.CartItem;
 import za.ac.cput.domain.Order;
-import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Product;
+import za.ac.cput.domain.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,133 +15,136 @@ class OrderFactoryTest {
 
     @Test
     void testCreateOrder() {
+        Long orderID = 1L;
+        double orderAmount = 100.0;
 
-        int orderID = 1;
-        int userID = 100;
 
-        OrderItem item1 = new OrderItem.Builder()
-                .setItemID(1)
-                .setOrderID(orderID)
+        Product product1 = new Product.Builder()
+                .setProductID("1")
+                .setTitle("Art2")
+                .setPrice(10.99)
+                .build();
+
+        Product product2 = new Product.Builder()
+                .setProductID("2")
+                .setTitle("Mouse")
+                .setPrice(5.99)
+                .build();
+
+
+        CartItem item1 = new CartItem.Builder()
+                .setCartItemID(1)
+                .setProduct(product1)
                 .setQuantity(2)
-                .setUnitPrice(10.99)
-                .calculateSubTotal()
                 .build();
 
-        OrderItem item2 = new OrderItem.Builder()
-                .setItemID(2)
-                .setOrderID(orderID)
+        CartItem item2 = new CartItem.Builder()
+                .setCartItemID(2)
+                .setProduct(product2)
                 .setQuantity(1)
-                .setUnitPrice(5.99)
-                .calculateSubTotal()
                 .build();
 
-        List<OrderItem> orderItems = List.of(item1, item2);
-        double totalAmount = item1.getSubTotal() + item2.getSubTotal();
+        List<CartItem> cartItems = List.of(item1, item2);
+        double totalAmount = (item1.getProduct().getPrice() * item1.getQuantity())
+                + (item2.getProduct().getPrice() * item2.getQuantity());
+
         LocalDateTime orderDate = LocalDateTime.now();
-        int paymentID = 500;
-        String paymentStatus = "PAID";
+        OrderStatus paymentStatus = OrderStatus.SHIPPED;
 
         Order order = OrderFactory.createOrder(
                 orderID,
-                userID,
-                orderItems,
+                cartItems,
                 totalAmount,
                 orderDate,
-                paymentID,
+                orderAmount,
                 paymentStatus
         );
 
         assertNotNull(order);
         assertEquals(orderID, order.getOrderID());
-        assertEquals(userID, order.getUserID());
-        assertEquals(2, order.getOrderItems().size());
+        assertEquals(orderAmount, order.getOrderAmount(), 0.001);
+        assertEquals(2, order.getCartItems().size());
         assertEquals(totalAmount, order.getTotalAmount(), 0.001);
         assertEquals(orderDate, order.getOrderDate());
-        assertEquals(paymentID, order.getPaymentID());
         assertEquals(paymentStatus, order.getPaymentStatus());
 
-        OrderItem firstItem = order.getOrderItems().get(0);
-        assertEquals(1, firstItem.getItemID());
-        assertEquals(orderID, firstItem.getOrderID());
+        CartItem firstItem = order.getCartItems().get(0);
+        assertEquals(1, firstItem.getCartItemID());
         assertEquals(2, firstItem.getQuantity());
-        assertEquals(10.99, firstItem.getUnitPrice(), 0.001);
-        assertEquals(21.98, firstItem.getSubTotal(), 0.001);
+        assertEquals(product1, firstItem.getProduct());
     }
 
     @Test
     void testCreateOrderWithSingleItem() {
-        int orderID = 2;
-        int userID = 101;
+        Long orderID = 2L;
+        double orderAmount = 50.0;
 
-        OrderItem item = new OrderItem.Builder()
-                .setItemID(3)
-                .setOrderID(orderID)
-                .setQuantity(1)
-                .setUnitPrice(15.50)
-                .calculateSubTotal()
+        Product product = new Product.Builder()
+                .setProductID("3")
+                .setTitle("ART1")
+                .setPrice(15.50)
                 .build();
 
-        List<OrderItem> orderItems = List.of(item);
-        double totalAmount = item.getSubTotal();
+        CartItem item = new CartItem.Builder()
+                .setCartItemID(3)
+                .setProduct(product)
+                .setQuantity(1)
+                .build();
+
+        List<CartItem> cartItems = List.of(item);
+        double totalAmount = item.getProduct().getPrice() * item.getQuantity();
+
         LocalDateTime orderDate = LocalDateTime.of(2025, 5, 15, 10, 30);
-        int paymentID = 501;
-        String paymentStatus = "PENDING";
+        OrderStatus paymentStatus = OrderStatus.PENDING;
 
         Order order = OrderFactory.createOrder(
                 orderID,
-                userID,
-                orderItems,
+                cartItems,
                 totalAmount,
                 orderDate,
-                paymentID,
+                orderAmount,
                 paymentStatus
         );
 
         assertNotNull(order);
         assertEquals(orderID, order.getOrderID());
-        assertEquals(userID, order.getUserID());
-        assertEquals(1, order.getOrderItems().size());
+        assertEquals(orderAmount, order.getOrderAmount(), 0.001);
+        assertEquals(1, order.getCartItems().size());
         assertEquals(totalAmount, order.getTotalAmount(), 0.001);
         assertEquals(orderDate, order.getOrderDate());
-        assertEquals(paymentID, order.getPaymentID());
         assertEquals(paymentStatus, order.getPaymentStatus());
 
-        OrderItem orderItem = order.getOrderItems().get(0);
-        assertEquals(3, orderItem.getItemID());
-        assertEquals(orderID, orderItem.getOrderID());
+        CartItem orderItem = order.getCartItems().get(0);
+        assertEquals(3, orderItem.getCartItemID());
         assertEquals(1, orderItem.getQuantity());
-        assertEquals(15.50, orderItem.getUnitPrice(), 0.001);
-        assertEquals(15.50, orderItem.getSubTotal(), 0.001);
+        assertEquals(product, orderItem.getProduct());
     }
 
     @Test
     void testCreateOrderWithEmptyItems() {
-        int orderID = 3;
-        int userID = 102;
+        Long orderID = 3L;
+        double orderAmount = 0.0;
 
-        List<OrderItem> orderItems = List.of();
+        List<CartItem> cartItems = List.of(); // empty list
         double totalAmount = 0.0;
         LocalDateTime orderDate = LocalDateTime.now();
-        int paymentID = 502;
-        String paymentStatus = "FAILED";
+        OrderStatus paymentStatus = OrderStatus.CANCELLED;
 
         Order order = OrderFactory.createOrder(
                 orderID,
-                userID,
-                orderItems,
+                cartItems,
                 totalAmount,
                 orderDate,
-                paymentID,
+                orderAmount,
                 paymentStatus
         );
 
         assertNotNull(order);
         assertEquals(orderID, order.getOrderID());
-        assertEquals(userID, order.getUserID());
-        assertTrue(order.getOrderItems().isEmpty());
+        assertEquals(orderAmount, order.getOrderAmount(), 0.001);
+        assertTrue(order.getCartItems().isEmpty());
         assertEquals(totalAmount, order.getTotalAmount(), 0.001);
         assertEquals(orderDate, order.getOrderDate());
-        assertEquals(paymentID, order.getPaymentID());
         assertEquals(paymentStatus, order.getPaymentStatus());
     }
 }
