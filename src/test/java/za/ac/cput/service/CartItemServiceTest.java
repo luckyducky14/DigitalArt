@@ -11,6 +11,9 @@ import za.ac.cput.domain.Product;
 import za.ac.cput.domain.User;
 import za.ac.cput.factory.CartItemFactory;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
@@ -19,12 +22,8 @@ class CartItemServiceTest {
 
     private ICartItemService cartItemService;
 
-    private static final User user = new User.Builder()
-            .setFirstName("Thando")
-            .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
-            .setPassword("password123")
-            .build();
+    private static final User user = new User.Builder().setUserId(123L).setFirstName("Thando")
+            .setLastName("Mseleku").setPassword("password").build();
 
     private static final Cart cart = new Cart.Builder()
             .setUserID(user)
@@ -65,7 +64,13 @@ class CartItemServiceTest {
         System.out.println(updated);
     }
 
-    //delete ADDDDDD
+    @Test
+    void e_delete() {
+        cartItemService.delete(cartItem1.getCartItemID());
+        CartItem deleted = cartItemService.read(cartItem1.getCartItemID());
+        assertNull(deleted);
+        System.out.println("CartItem deleted successfully");
+    }
 
     @Test
     void d_getAll() {

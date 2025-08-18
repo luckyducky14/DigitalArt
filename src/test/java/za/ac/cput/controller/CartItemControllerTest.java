@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.*;
@@ -31,12 +33,9 @@ private static final String BASE_URL = "/cart_item/";
     @BeforeAll
     public static void setUp() {
 
-        user = new User.Builder()
-                .setFirstName("Thando")
-                .setLastName("Mseleku")
-                .setEmail("123@gmail.com")
-                .setPassword("password123")
-                .build();
+         user = new User.Builder().setUserId(123L).setFirstName("Thando")
+                .setLastName("Mseleku").setPassword("password").build();
+
 
          cart = new Cart.Builder()
                 .setUserID(user)
@@ -54,10 +53,10 @@ private static final String BASE_URL = "/cart_item/";
     }
  @Test
     void a_create(){
-        String url = BASE_URL + "create";
+        String url = BASE_URL + "/create";
      ResponseEntity<CartItem>postResponse = restTemplate.postForEntity(url, cartItem, CartItem.class);
      assertNotNull(postResponse);
-     assertEquals(postResponse.getStatusCode(), HttpStatus.OK);
+     assertNotNull(postResponse.getBody());
      CartItem cartItemCreated = postResponse.getBody();
      assertEquals(cartItem.getCartItemID(), cartItemCreated.getCartItemID());
      System.out.println("cartItemCreated = " + cartItemCreated);
@@ -66,7 +65,7 @@ private static final String BASE_URL = "/cart_item/";
 
  @Test
     void b_read(){
-        String url = BASE_URL + "read" + cartItem.getCartItemID();
+        String url = BASE_URL + "/read" + cartItem.getCartItemID();
         ResponseEntity<CartItem>response = this.restTemplate.getForEntity(url, CartItem.class);
         assertEquals(cartItem.getCartItemID(), response.getBody().getCartItemID());
      System.out.println("read =" + response.getBody());
@@ -76,35 +75,56 @@ private static final String BASE_URL = "/cart_item/";
  void c_update(){
         CartItem updatedCartItem = new CartItem.Builder().copy(cartItem).setQuantity(100).build();
         String url = BASE_URL + "/update";
-        ResponseEntity<CartItem>response =this.restTemplate.getForEntity(BASE_URL + "read" + cartItem.getCartItemID(), CartItem.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        System.out.println("URL = " + url);
+
+        ResponseEntity<CartItem> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                new HttpEntity<>(updatedCartItem),
+                CartItem.class
+        );
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(updatedCartItem.getQuantity(), response.getBody().getCartItemID());
+        assertEquals(100, response.getBody().getQuantity());
+        cartItem = response.getBody();
      System.out.println("updated" +response.getBody());
 
  }
 
 
     @Test
+    void d_getAll(){
+        String url =BASE_URL + "/getAll";
+        ResponseEntity<CartItem[]>response = this.restTemplate.getForEntity(url, CartItem[].class);
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().length > 0);
+        System.out.println("Get All = " + response.getBody());
+
+    }
+
+    @Test
     @Disabled
     void e_delete(){
         String url = BASE_URL + "/delete/" + cartItem.getCartItemID();
-        this.restTemplate.delete(url);
-     ResponseEntity<CartItem>response = this.restTemplate.getForEntity(BASE_URL + "/read/" + cartItem.getCartItemID(), CartItem.class);
-     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-     System.out.println("Deleted: true"+cartItem);
+        ResponseEntity<Void> deleteResponse = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                Void.class
+        );
+
+
+        assertEquals(HttpStatus.NO_CONTENT, deleteResponse.getStatusCode());
+        System.out.println("Deleted: true " + cartItem);
+
+        String readUrl = BASE_URL + "/read/" + cartItem.getCartItemID();
+        ResponseEntity<CartItem> readResponse = restTemplate.getForEntity(readUrl, CartItem.class);
+
+
+        assertNull(readResponse.getBody(), "CartItem should be deleted");
+
  }
 
-
- @Test
-    void d_getAll(){
-        String url =BASE_URL + "/getAll";
-     ResponseEntity<CartItem[]>response = this.restTemplate.getForEntity(url, CartItem[].class);
-     assertNotNull(response.getBody());
-     assertTrue(response.getBody().length > 0);
-     System.out.println("Get All = " + response.getBody());
-
- }
 }
 
 
