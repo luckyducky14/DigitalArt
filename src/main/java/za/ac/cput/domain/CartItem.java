@@ -10,20 +10,30 @@ Date: 25/05/2025
 */
 
 @Entity
+@Table(name = "cart_Item" )
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartItemID;
+    private Long cartItemID; //change to Long
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cartID")
     private Cart cart;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "productID")
     private Product product;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(name = "quantity", nullable = false)
     private int quantity;
+
+    //add price
+    @Column(name = "price",nullable = false)
+    private double price;
 
     protected CartItem() {
     }
@@ -32,10 +42,12 @@ public class CartItem {
         this.cartItemID = builder.cartItemID;
         this.cart = builder.cart;
         this.product = builder.product;
+        this.user = builder.user;
         this.quantity = builder.quantity;
+        this.price = builder.price;
     }
 
-    public int getCartItemID() {
+    public Long getCartItemID() {
         return cartItemID;
     }
 
@@ -51,13 +63,34 @@ public class CartItem {
         return quantity;
     }
 
+    public User getUser() {
+        return user;
+    }
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "cartItemID=" + cartItemID +
+                ", cart=" + cart +
+                ", product=" + product +
+                ", user=" + user +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
+
     public static class Builder {
-        private int cartItemID;
+        private Long cartItemID;
         private Cart cart;
         private Product product;
         private int quantity;
+        private User user;
+        private double price;
 
-        public Builder setCartItemID(int cartItemID) {
+        public Builder setCartItemID(Long cartItemID) {
             this.cartItemID = cartItemID;
             return this;
         }
@@ -76,13 +109,22 @@ public class CartItem {
             this.cart = cart;
             return this;
         }
+        public Builder setUser(User user) {
+            this.user = user;
+            return this;
+        }
+        public Builder setPrice(double price) {
+            this.price = price;
+            return this;
+        }
 
         public Builder copy(CartItem cartItem) {
             this.cartItemID = cartItem.cartItemID;
             this.cart = cartItem.cart;
             this.product = cartItem.product;
-
+             this.user = cartItem.user;
             this.quantity = cartItem.quantity;
+            this.price = cartItem.price;
             return this;
 
         }
