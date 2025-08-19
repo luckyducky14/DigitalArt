@@ -29,7 +29,7 @@ class WishlistServiceTest {
             .build();
 
     static Product product = new Product.Builder()
-            .setProductID("P123")
+            .setProductID(123L)
             .setTitle("Sample Product")
             .setDescription("Description")
             .setPrice(50.0)
@@ -64,7 +64,7 @@ class WishlistServiceTest {
     void c_update() {
         List<Product> updatedProducts = new ArrayList<>();
         Product newProduct = new Product.Builder()
-                .setProductID("P456")
+                .setProductID(123L)
                 .setTitle("Updated Product")
                 .setDescription("Updated Description")
                 .setPrice(75.0)

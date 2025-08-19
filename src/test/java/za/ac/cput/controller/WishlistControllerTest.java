@@ -66,7 +66,7 @@ class WishlistControllerTest {
     void update() {
         List<Product> newProducts = new ArrayList<>();
         Product product = new Product.Builder()
-                .setProductID("P123")
+                .setProductID(123L)
                 .setTitle("Updated Product")
                 .setDescription("Updated")
                 .setPrice(100.0)

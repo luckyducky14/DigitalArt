@@ -9,7 +9,11 @@ public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long discountId;
+
+    @Column(nullable = false, unique = true)
     private String code;
+
+    @Column(precision = 5, scale = 2) // up to 999.99%
     private BigDecimal percentage;
     private LocalDate startDate;
     private LocalDate endDate;

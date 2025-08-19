@@ -1,6 +1,8 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Inventory;
 import za.ac.cput.service.InventoryService;
@@ -39,7 +41,8 @@ public class InventoryController {
     }
 
     @GetMapping("/getAll")
-    public List<Inventory> getAll() {
-        return service.getAll();
+    public ResponseEntity<List <Inventory>> getAll() {
+        List<Inventory> inventories = service.getAll();
+        return new ResponseEntity<>(inventories, HttpStatus.OK);
     }
 }

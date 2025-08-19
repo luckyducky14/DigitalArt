@@ -11,6 +11,6 @@ Date: 03 August 2025
 
 import java.util.List;
 
-public interface ICartItemService extends IService<CartItem,Integer>{
+ public interface ICartItemService extends IService<CartItem,Long>{
     List<CartItem> getAll();
 }

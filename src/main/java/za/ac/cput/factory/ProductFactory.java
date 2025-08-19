@@ -14,11 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductFactory {
 
-    public Product createBasicProduct(String productID, String title, double price) {
-        validateBasicProductParameters(productID, title, price);
+    public Product createBasicProduct(String title, double price) {
+        //validateBasicProductParameters(title, price);
 
         return new Product.Builder()
-                .setProductID(productID)
                 .setTitle(title)
                 .setPrice(price)
                 .build();
@@ -35,7 +34,6 @@ public class ProductFactory {
         }
 
         return new Product.Builder()
-                .setProductID(productID)
                 .setTitle(title)
                 .setDescription(description)
                 .setPrice(price)

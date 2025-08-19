@@ -3,6 +3,7 @@ package za.ac.cput.controller;
 import za.ac.cput.domain.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.service.IPaymentService;
 import za.ac.cput.service.PaymentService;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
 @RequestMapping("/payment")
 public class PaymentController {
 
-    private PaymentService service;
+    private final PaymentService service;
 
     @Autowired
-    public PaymentController(PaymentService service){
+    public PaymentController(PaymentService service) {
         this.service = service;
     }
 
@@ -30,8 +31,8 @@ public class PaymentController {
         return service.update(payment);
     }
     @DeleteMapping("/delete/{paymentID}")
-    public boolean delete(@PathVariable Long paymentID){
-        return service.delete(paymentID);
+    public void delete(@PathVariable Long paymentID){
+        service.delete(paymentID);
     }
     @GetMapping("/getAll")
     public List<Payment> getAll(){

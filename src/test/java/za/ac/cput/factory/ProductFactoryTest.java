@@ -19,7 +19,7 @@ class ProductFactoryTest {
 
     @Test
     void testCreateBasicProduct() {
-        Product product = factory.createBasicProduct("prod-001", "Test Product", 10.99);
+        Product product = factory.createBasicProduct("Test Product", 10.99);
 
         assertNotNull(product);
         assertEquals("prod-001", product.getProductID());
@@ -40,7 +40,7 @@ class ProductFactoryTest {
 
     @Test
     void testCreateWithInvalidPrice() {
-        Executable action = () -> factory.createBasicProduct("prod-001", "Test", -1.0);
+        Executable action = () -> factory.createBasicProduct("Test", -1.0);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, action);
         assertEquals("Invalid price: -1.0", exception.getMessage());
     }

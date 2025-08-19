@@ -4,15 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Discount;
 import za.ac.cput.repository.DiscountRepository;
-import za.ac.cput.service.DiscountService;
 
 import java.util.List;
 
 @Service
-public class DiscountService {
+public class DiscountService implements IDiscountService{
 
     @Autowired
-    private static IDiscountService service;
     private DiscountRepository repository;
 
     public Discount create(Discount discount) {
@@ -28,7 +26,7 @@ public class DiscountService {
     }
 
     public void delete(Long discountID) {
-        this.repository.deleteById(discountID);
+        repository.deleteById(discountID);
     }
 
     public List<Discount> getAll() {

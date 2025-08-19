@@ -10,6 +10,7 @@ Date: 16 May 2025
 import za.ac.cput.domain.Payment;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.domain.enums.PaymentStatus;
 import za.ac.cput.factory.PaymentFactory;
 
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ class PaymentFactoryTest {
 
     @Test
     void createPayment_success() {
-        Payment payment = PaymentFactory.createPayment(LocalDate.now(), 100.0, "Completed", "Credit Card");
+        Payment payment = PaymentFactory.createPayment(LocalDate.now(), 100.0, PaymentStatus.COMPLETED);
         assertNotNull(payment);
         System.out.print(payment);
     }

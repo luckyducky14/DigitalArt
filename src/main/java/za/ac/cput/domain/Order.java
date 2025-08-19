@@ -13,27 +13,35 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderID;
 
-    private Long userID;
+   @Column(updatable = false)
     private double totalAmount;
+    @Column(updatable = false)
+   private double orderAmount;
     private LocalDateTime orderDate;
-    private Long paymentID;
+
+    @Embedded
+    private Address shippingAddress;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus paymentStatus;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
-    private List<OrderItem> orderItems;
+    private List<CartItem> cartItems;
 
     protected Order() {}
 
     public Order(Builder builder) {
         this.orderID = builder.orderID;
-        this.userID = builder.userID;
-        this.orderItems = builder.orderItems;
+
+        this.cartItems = builder.cartItems;
         this.totalAmount = builder.totalAmount;
         this.orderDate = builder.orderDate;
-        this.paymentID = builder.paymentID;
+        this.orderAmount = builder.orderAmount;
         this.paymentStatus = builder.paymentStatus;
     }
 
@@ -41,25 +49,23 @@ public class Order {
         return orderID;
     }
 
-    public Long getUserID() {
-        return userID;
-    }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+    public double getOrderAmount() {
+        return orderAmount;
     }
 
     public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public Long getPaymentID() {
-        return paymentID;
-    }
 
     public OrderStatus getPaymentStatus() {
         return paymentStatus;
@@ -69,11 +75,12 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderID=" + orderID +
-                ", userID=" + userID +
-                ", orderItems=" + orderItems +
+
+                ", cartItems=" + cartItems +
                 ", totalAmount=" + totalAmount +
                 ", orderDate=" + orderDate +
-                ", paymentID=" + paymentID +
+                " orderAmount=" + orderAmount +
+
                 ", paymentStatus=" + paymentStatus +
                 '}';
     }
@@ -81,25 +88,24 @@ public class Order {
     public static class Builder {
 
         private Long orderID;
-        private Long userID;
-        private List<OrderItem> orderItems;
+
+
         private double totalAmount;
+        private double orderAmount;
         private LocalDateTime orderDate;
-        private Long paymentID;
+
+
         private OrderStatus paymentStatus;
+        private List<CartItem> cartItems;
 
         public Builder setOrderID(Long orderID) {
             this.orderID = orderID;
             return this;
         }
 
-        public Builder setUserID(Long userID) {
-            this.userID = userID;
-            return this;
-        }
 
-        public Builder setOrderItems(List<OrderItem> orderItems) {
-            this.orderItems = orderItems;
+        public Builder setCartItem(List<CartItem> cartItems) {
+            this.cartItems = cartItems;
             return this;
         }
 
@@ -112,11 +118,12 @@ public class Order {
             this.orderDate = orderDate;
             return this;
         }
-
-        public Builder setPaymentID(Long paymentID) {
-            this.paymentID = paymentID;
+        public Builder setOrderAmount(double orderAmount) {
+            this.orderAmount = orderAmount;
             return this;
         }
+
+
 
         public Builder setPaymentStatus(OrderStatus paymentStatus) {
             this.paymentStatus = paymentStatus;
@@ -125,11 +132,12 @@ public class Order {
 
         public Builder copy(Order order) {
             this.orderID = order.orderID;
-            this.userID = order.userID;
-            this.orderItems = order.orderItems;
+
+            this.cartItems = order.cartItems;
             this.totalAmount = order.totalAmount;
             this.orderDate = order.orderDate;
-            this.paymentID = order.paymentID;
+            this.orderAmount = order.orderAmount;
+
             this.paymentStatus = order.paymentStatus;
             return this;
         }

@@ -11,12 +11,12 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryID;
 
-    @OneToOne
-    @JoinColumn(name = "productID", referencedColumnName = "productID")
+    @OneToOne(cascade = CascadeType.ALL)
+
     private Product product;
 
     private int quantity;
-    private LocalDateTime lastUpdated;
+
 
     protected Inventory() {}
 
@@ -24,32 +24,32 @@ public class Inventory {
         this.inventoryID = builder.inventoryID;
         this.product = builder.product;
         this.quantity = builder.quantity;
-        this.lastUpdated = builder.lastUpdated;
+
     }
 
     // Getters
     public Long getInventoryID() { return inventoryID; }
     public Product getProduct() { return product; }
     public int getQuantity() { return quantity; }
-    public LocalDateTime getLastUpdated() { return lastUpdated; }
 
-    // Builder
+
+
     public static class Builder {
         private Long inventoryID;
         private Product product;
         private int quantity;
-        private LocalDateTime lastUpdated;
+
 
         public Builder setInventoryID(Long inventoryID) { this.inventoryID = inventoryID; return this; }
         public Builder setProduct(Product product) { this.product = product; return this; }
         public Builder setQuantity(int quantity) { this.quantity = quantity; return this; }
-        public Builder setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated = lastUpdated; return this; }
+
 
         public Builder copy(Inventory inventory) {
             this.inventoryID = inventory.inventoryID;
             this.product = inventory.product;
             this.quantity = inventory.quantity;
-            this.lastUpdated = inventory.lastUpdated;
+
             return this;
         }
 
@@ -62,7 +62,6 @@ public class Inventory {
                 "inventoryID=" + inventoryID +
                 ", product=" + product +
                 ", quantity=" + quantity +
-                ", lastUpdated=" + lastUpdated +
                 '}';
     }
 }

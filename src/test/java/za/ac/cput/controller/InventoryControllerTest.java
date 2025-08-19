@@ -9,8 +9,6 @@ import za.ac.cput.domain.Inventory;
 import za.ac.cput.domain.Product;
 import za.ac.cput.factory.InventoryFactory;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -21,19 +19,26 @@ public class InventoryControllerTest {
 
     private final String BASE_URL = "/inventory";
 
-
     private Product dummyProduct() {
         return new Product.Builder()
-                .setProductID("prod-101")
+                .setProductID(101L)
                 .setTitle("Test Product")
                 .setPrice(99.99)
                 .build();
     }
 
+    private Inventory buildInventory(Product product, int quantity) {
+        // Generate a unique Long ID
+        return new Inventory.Builder()
+                .setInventoryID(System.currentTimeMillis())
+                .setProduct(product)
+                .setQuantity(quantity)
+                .build();
+    }
 
     @Test
     void testCreateInventory() {
-        Inventory inventory = InventoryFactory.createInventory(dummyProduct(), 50);
+        Inventory inventory = buildInventory(dummyProduct(), 50);
 
         ResponseEntity<Inventory> response = restTemplate.postForEntity(
                 BASE_URL + "/create", inventory, Inventory.class
@@ -46,7 +51,7 @@ public class InventoryControllerTest {
 
     @Test
     void testReadInventory() {
-        Inventory inventory = InventoryFactory.createInventory(dummyProduct(), 20);
+        Inventory inventory = buildInventory(dummyProduct(), 20);
         Inventory created = restTemplate.postForEntity(BASE_URL + "/create", inventory, Inventory.class).getBody();
 
         Inventory readInventory = restTemplate.getForObject(BASE_URL + "/read/" + created.getInventoryID(), Inventory.class);
@@ -56,7 +61,7 @@ public class InventoryControllerTest {
 
     @Test
     void testUpdateInventory() {
-        Inventory inventory = InventoryFactory.createInventory(dummyProduct(), 10);
+        Inventory inventory = buildInventory(dummyProduct(), 10);
         Inventory created = restTemplate.postForEntity(BASE_URL + "/create", inventory, Inventory.class).getBody();
 
         Inventory updated = new Inventory.Builder()
@@ -78,19 +83,23 @@ public class InventoryControllerTest {
 
     @Test
     void testDeleteInventory() {
-        Inventory inventory = InventoryFactory.createInventory(dummyProduct(), 15);
+        Inventory inventory = buildInventory(dummyProduct(), 15);
         Inventory created = restTemplate.postForEntity(BASE_URL + "/create", inventory, Inventory.class).getBody();
 
         restTemplate.delete(BASE_URL + "/delete/" + created.getInventoryID());
 
-        Inventory deleted = restTemplate.getForObject(BASE_URL + "/read/" + created.getInventoryID(), Inventory.class);
-        assertNull(deleted);
+        ResponseEntity<Inventory> response = restTemplate.getForEntity(
+                BASE_URL + "/read/" + created.getInventoryID(),
+                Inventory.class
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     void testGetAllInventory() {
-        Inventory inventory1 = InventoryFactory.createInventory(dummyProduct(), 5);
-        Inventory inventory2 = InventoryFactory.createInventory(dummyProduct(), 10);
+        Inventory inventory1 = buildInventory(dummyProduct(), 5);
+        Inventory inventory2 = buildInventory(dummyProduct(), 10);
 
         restTemplate.postForEntity(BASE_URL + "/create", inventory1, Inventory.class);
         restTemplate.postForEntity(BASE_URL + "/create", inventory2, Inventory.class);
@@ -98,6 +107,7 @@ public class InventoryControllerTest {
         ResponseEntity<Inventory[]> response = restTemplate.getForEntity(BASE_URL + "/getAll", Inventory[].class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertTrue(response.getBody().length >= 2);
     }
 }

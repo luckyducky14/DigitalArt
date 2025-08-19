@@ -16,10 +16,10 @@ import java.util.List;
 
 @Service
 public class CartItemService implements ICartItemService {
-     private CartItemRepository cartItemRepository;
+     private final CartItemRepository cartItemRepository;
 
      @Autowired
-     void cartItemService(CartItemRepository cartItemRepository){
+     public CartItemService(CartItemRepository cartItemRepository){
          this.cartItemRepository = cartItemRepository;
      }
 
@@ -30,7 +30,7 @@ public class CartItemService implements ICartItemService {
     }
 
     @Override
-    public CartItem read(Integer cartItemId) {
+    public CartItem read(Long cartItemId) {
         return cartItemRepository.findById(cartItemId).orElse(null);
     }
 
@@ -40,8 +40,8 @@ public class CartItemService implements ICartItemService {
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public void delete(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
     }
 
     @Override

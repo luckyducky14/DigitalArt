@@ -10,11 +10,11 @@ Date: 04 May 2025
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import za.ac.cput.domain.enums.PaymentMethod;
+
 import za.ac.cput.domain.enums.PaymentStatus;
 
 @Entity
-@Table (name = "payment")
+@Table (name = "payments")
 public class Payment {
 
     @Id
@@ -25,13 +25,10 @@ public class Payment {
     private LocalDate paymentDate;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "orderID", nullable = false)
     private Order order;
 
     private double amount;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
