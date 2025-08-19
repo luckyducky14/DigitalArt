@@ -23,7 +23,6 @@ class CartItemFactoryTest {
     private static final User user = new User.Builder()
             .setFirstName("Thando")
             .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
             .setPassword("password123")
             .build();
 

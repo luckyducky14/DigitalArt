@@ -19,13 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReviewServiceTest {
     @Autowired
     private IReviewService reviewService;
+   static User user = new User.Builder().setUserId(123L).setFirstName("Thando")
+            .setLastName("Mseleku").setPassword("password").build();
 
-    static User user = new User.Builder()
-            .setFirstName("Thando")
-            .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
-            .setPassword("password123")
-            .build();
     static Product product = new Product.Builder()
             .setProductID("P001")
             .setTitle("Digital Art")
@@ -34,9 +30,7 @@ class ReviewServiceTest {
             .setCategoryID("C001")
             .build();
 
-    private static Review review1 = ReviewFactory.createReview(user,product,2,"Poor design",
-            LocalDate.now());
-
+    private static Review review1 =ReviewFactory.createReview(2,"Poor design",LocalDate.now(),user,product);
     @Test
     @Order(1)
     void create() {

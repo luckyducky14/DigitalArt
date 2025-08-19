@@ -15,7 +15,6 @@ class ReviewFactoryTest {
     static User user = new User.Builder()
             .setFirstName("Thando")
             .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
             .setPassword("password123")
             .build();
     static Product product = new Product.Builder()
@@ -27,11 +26,8 @@ class ReviewFactoryTest {
             .build();
 
 
-    private static Review review1 = ReviewFactory.createReview(user,product,5,"Exceptional design",
-            LocalDate.now());
-
-    private static Review review2 = ReviewFactory.createReview(user,product,7, "Nice art!",
-            LocalDate.now()
+    private static Review review1 = ReviewFactory.createReview(5,"good work",LocalDate.now(),user,product);
+    private static Review review2 = ReviewFactory.createReview(7,"Exceptional design",LocalDate.now(),user,product
     );
 
     @Test
