@@ -9,9 +9,10 @@ Date: 08 May 2025
 
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
+//import javax.management.relation.Role;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import za.ac.cput.domain.enums.Role;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
     private String lastName;
     private String firstName;
     private String password;

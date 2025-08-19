@@ -20,26 +20,26 @@ class OrderFactoryTest {
 
 
         Product product1 = new Product.Builder()
-                .setProductID("1")
+                .setProductID(1L)
                 .setTitle("Art2")
                 .setPrice(10.99)
                 .build();
 
         Product product2 = new Product.Builder()
-                .setProductID("2")
+                .setProductID(1L)
                 .setTitle("Mouse")
                 .setPrice(5.99)
                 .build();
 
 
         CartItem item1 = new CartItem.Builder()
-                .setCartItemID(1)
+                .setCartItemID(1L)
                 .setProduct(product1)
                 .setQuantity(2)
                 .build();
 
         CartItem item2 = new CartItem.Builder()
-                .setCartItemID(2)
+                .setCartItemID(2L)
                 .setProduct(product2)
                 .setQuantity(1)
                 .build();
@@ -80,13 +80,13 @@ class OrderFactoryTest {
         double orderAmount = 50.0;
 
         Product product = new Product.Builder()
-                .setProductID("3")
+                .setProductID(3L)
                 .setTitle("ART1")
                 .setPrice(15.50)
                 .build();
 
         CartItem item = new CartItem.Builder()
-                .setCartItemID(3)
+                .setCartItemID(3L)
                 .setProduct(product)
                 .setQuantity(1)
                 .build();

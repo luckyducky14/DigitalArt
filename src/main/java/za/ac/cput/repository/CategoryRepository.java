@@ -15,8 +15,8 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository <Category, Long>{
 
-    List<Category> findbyName(String name);
+    List<Category> findByName(String name);
 
-    List<Category> findDescription(String description);
+    List<Category> findByDescription(String description);
 
 }

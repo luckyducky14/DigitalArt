@@ -33,10 +33,7 @@ public class WishlistService implements IWishlistService {
     }
 
     @Override
-    public void delete(Long wishlistID) {
-        if (repository.existsById(wishlistID)) {
-            repository.deleteById(wishlistID);
-        }
+    public void delete(Long wishlistID) {repository.deleteById(wishlistID);
     }
 
     @Override

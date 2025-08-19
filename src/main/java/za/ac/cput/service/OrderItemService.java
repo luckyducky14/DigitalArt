@@ -34,9 +34,7 @@ public class OrderItemService implements IOrderItemService {
 
     @Override
     public void delete(Long itemID) {
-        if (repository.existsById(itemID)) {
-            repository.deleteById(itemID);
-        }
+        repository.deleteById(itemID);
     }
 
     @Override

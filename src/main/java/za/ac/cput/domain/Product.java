@@ -1,8 +1,6 @@
 package za.ac.cput.domain;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
 /*
 Product.java
@@ -11,10 +9,11 @@ Author: Thimna Gogwana (222213973)
 Date: 25 May 2025
 */
 @Entity
-@Table
+@Table(name ="products")
 public class  Product {
     @Id
-    private String productID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Long productID;
     private String categoryID;
     private String title;
     private String description;
@@ -36,7 +35,7 @@ public class  Product {
     }
 
 
-    public String getProductID() {
+    public Long getProductID() {
         return productID;
     }
 
@@ -70,13 +69,13 @@ public class  Product {
 
     public static class Builder{
 
-        private String productID;
+        private Long productID;
         private String title;
         private String description;
         private double price;
         private String categoryID;
 
-        public Builder setProductID(String productID) {
+        public Builder setProductID(Long productID) {
             this.productID = productID;
             return this;
         }

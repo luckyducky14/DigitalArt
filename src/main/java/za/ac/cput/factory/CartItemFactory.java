@@ -8,18 +8,21 @@ Date: 18 May 2025
 import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.CartItem;
 import za.ac.cput.domain.Product;
+import za.ac.cput.domain.User;
 import za.ac.cput.util.Helper;
 
 public class CartItemFactory {
-    public static CartItem createCartItem(Cart cart, Product product, int quantity) {
-        if ( cart == null || product == null || !Helper.isValidQuantity(quantity)) {
+    public static CartItem createCartItem(Cart cart, Product product,User user, int quantity,double price) {
+        if (quantity <= 0){
             return null;
-        }
+            }
 
         return new CartItem.Builder()
                 .setCart(cart)
+                .setUser(user)
                 .setProduct(product)
                 .setQuantity(quantity)
+                .setPrice(price)
                 .build();
     }
 }

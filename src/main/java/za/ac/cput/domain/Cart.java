@@ -20,8 +20,8 @@ public class Cart {
     private Long cartID; // put it as a Long
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userID", referencedColumnName = "userID")
-    private User userID;
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
@@ -30,7 +30,7 @@ public class Cart {
 
     public Cart(Builder builder) {
         this.cartID = builder.cartID;
-        this.userID = builder.userID;
+        this.user = builder.userID;
         this.cartItems = builder.cartItems;
     }
 
@@ -39,7 +39,7 @@ public class Cart {
     }
 
     public User getUserID() {
-        return userID;
+        return user;
     }
 
     public List<CartItem> getCartItems() {
@@ -50,7 +50,7 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "cartID=" + cartID +
-                ", userID=" + userID +
+                ", userID=" + user +
                 ", cartItem=" + cartItems +
                 '}';
     }
@@ -66,7 +66,7 @@ public class Cart {
             return this;
         }
 
-        public Builder setUserID(User userID) {
+        public Builder setUserID(User user) {
             this.userID = userID;
             return this;
         }
@@ -78,7 +78,7 @@ public class Cart {
 
         public Builder copy(Cart cart){
             this.cartID = cart.cartID;
-            this.userID = cart.userID;
+            this.userID = cart.user;
             this.cartItems = cart.cartItems;
             return this;
         }

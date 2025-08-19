@@ -78,7 +78,7 @@ public class Helper {
 
     public static boolean isValidProduct(Product product) {
         return product != null &&
-                isValidProductID(product.getProductID()) &&
+                //isValidProductID(product.getProductID()) &&
                 isValidTitle(product.getTitle()) &&
                 (product.getDescription() == null || isValidDescription(product.getDescription())) &&
                 isValidPrice(product.getPrice()) &&

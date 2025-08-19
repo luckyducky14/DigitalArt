@@ -10,7 +10,7 @@ class InventoryFactoryTest {
 
     private Product dummyProduct() {
         return new Product.Builder()
-                .setProductID("prod-001")
+                .setProductID(1L)
                 .setTitle("Test Product")
                 .setPrice(99.99)
                 .build();

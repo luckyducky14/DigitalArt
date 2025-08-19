@@ -28,7 +28,7 @@ public class InventoryServiceTest {
 
     private Product dummyProduct() {
         return new Product.Builder()
-                .setProductID("prod-101")
+                .setProductID(101L)
                 .setTitle("Test Product")
                 .setPrice(99.99)
                 .build();

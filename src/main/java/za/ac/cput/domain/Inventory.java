@@ -62,7 +62,6 @@ public class Inventory {
                 "inventoryID=" + inventoryID +
                 ", product=" + product +
                 ", quantity=" + quantity +
-
                 '}';
     }
 }

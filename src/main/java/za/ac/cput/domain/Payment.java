@@ -25,7 +25,7 @@ public class Payment {
     private LocalDate paymentDate;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "orderID", nullable = false)
     private Order order;
 
     private double amount;

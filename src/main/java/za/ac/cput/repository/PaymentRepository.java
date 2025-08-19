@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    List<Payment> findByStatus(String status);
+    //List<Payment> findByStatus(String status);
 
     List<Payment> findByPaymentDate(LocalDate paymentDate);
-    List<Payment> findByMethod(String method);
+    //List<Payment> findByMethod(String method);
     List<Payment> findByAmount(double amount);
     List<Payment> findByPaymentID(Long paymentID);
 

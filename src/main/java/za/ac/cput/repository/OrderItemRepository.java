@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
 
     List<OrderItem> findByOrderID(Long orderID);
 
-    List<OrderItem> findByProductProductID(String productID);
+    List<OrderItem> findByProductProductID(Long productID);
 
     List<OrderItem> findByQuantityGreaterThan(int quantity);
 
