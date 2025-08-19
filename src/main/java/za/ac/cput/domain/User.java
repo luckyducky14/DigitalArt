@@ -29,6 +29,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_email", referencedColumnName = "email")
+    private Contact contact;
+
 
     // Protected default constructor for JPA
     protected User() {}
@@ -52,6 +56,7 @@ public class User {
     public Role getRole() { return role; }
     public LocalDateTime getLastLogin() { return lastLogin; }
     public LocalDate getCreateDate() { return createDate; }
+    public Contact getContact() { return contact; }
 
     @Override
     public String toString() {
@@ -63,6 +68,7 @@ public class User {
                 ", role=" + role +
                 ", lastLogin=" + lastLogin +
                 ", createDate=" + createDate +
+                ", contact=" + contact +
                 '}';
     }
 
@@ -75,6 +81,7 @@ public class User {
         private Role role;
         private LocalDateTime lastLogin;
         private LocalDate createDate;
+        private Contact contact;
 
         public Builder setUserId(Long userId) {
             this.userId = userId;
@@ -104,6 +111,12 @@ public class User {
             this.createDate = createDate;
             return this;
         }
+
+        public Builder setContact(Contact contact) {
+            this.contact = contact;
+            return this;
+        }
+
         public Builder copy(User user) {
             this.userId = user.userId;
             this.lastName = user.lastName;
@@ -112,6 +125,7 @@ public class User {
             this.role = user.role;
             this.lastLogin = user.lastLogin;
             this.createDate = user.createDate;
+            this.contact = user.contact;
             return this;
         }
         public User build() {

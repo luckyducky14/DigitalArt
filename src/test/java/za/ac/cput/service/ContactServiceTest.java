@@ -21,7 +21,8 @@ class ContactServiceTest {
 
     @BeforeAll
     static void setUp() {
-        contact = ContactFactory.createContact("Oliver", "Stone", "0711112222", "oliver.stone@example.com");
+        contact = ContactFactory.createContact("Oliver", "Stone", "0711112222");
+
     }
 
     @Test

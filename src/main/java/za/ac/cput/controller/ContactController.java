@@ -11,12 +11,8 @@ import java.util.List;
 @RequestMapping("/contact")
 public class ContactController {
 
-    private final ContactService service;
-
     @Autowired
-    public ContactController(ContactService service) {
-        this.service = service;
-    }
+    private ContactService service;
 
     @PostMapping("/create")
     public Contact create(@RequestBody Contact contact) {
@@ -24,18 +20,13 @@ public class ContactController {
     }
 
     @GetMapping("/read/{id}")
-    public Contact read(@PathVariable Long contactId) {
-        return service.read(contactId);
+    public Contact read(@PathVariable Long id) {
+        return service.read(id);
     }
 
     @PutMapping("/update")
     public Contact update(@RequestBody Contact contact) {
         return service.update(contact);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable Long contactId) {
-        return service.delete(contactId);
     }
 
     @GetMapping("/getAll")

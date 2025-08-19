@@ -7,18 +7,17 @@ import java.time.LocalDate;
 
 public class ContactFactory {
 
-    public static Contact createContact(String firstName, String lastName, String phoneNumber, String email) {
+    public static Contact createContact(String phoneNumber, String email, String altNumber) {
 
-        if (Helper.isNullOrEmpty(firstName) ||
-                Helper.isNullOrEmpty(lastName) ||
-                Helper.isNullOrEmpty(phoneNumber) ||
-                Helper.isNullOrEmpty(email)) {
+        if (Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(phoneNumber)) {
+            return null;
+
+        }
+        if (phoneNumber.length() != 11) {
             return null;
         }
 
         return new Contact.Builder()
-                .setFirstName(firstName)
-                .setLastName(lastName)
                 .setPhoneNumber(phoneNumber)
                 .setEmail(email)
                 .setCreateDate(LocalDate.now())

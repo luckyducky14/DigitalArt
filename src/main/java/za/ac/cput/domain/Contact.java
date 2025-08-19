@@ -11,66 +11,60 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "contacts")
 public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contactId;
-    private String firstName;
-    private String lastName;
+
+    @Column(unique = true, nullable = false, length = 11)
     private String phoneNumber;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(unique = true, nullable = false)
     private LocalDate createDate;
+
+    @Column(unique = true, nullable = false, length = 11)
+    private String altNumber;
 
     protected Contact() {}
 
     private Contact(Builder builder) {
         this.contactId = builder.contactId;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
         this.phoneNumber = builder.phoneNumber;
         this.email = builder.email;
         this.createDate = builder.createDate;
+        this.altNumber = builder.altNumber;
     }
 
     public Long getContactId() { return contactId; }
-    public String getFirstName() { return firstName; }
-    public String getLastName() { return lastName; }
     public String getPhoneNumber() { return phoneNumber; }
     public String getEmail() { return email; }
     public LocalDate getCreateDate() { return createDate; }
+    public String getAltNumber() { return altNumber; }
 
     @Override
     public String toString() {
         return "Contact{" +
                 "contactId=" + contactId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", createDate=" + createDate +
+                ", altNumber='" + altNumber + '\'' +
                 '}';
     }
 
     public static class Builder {
         private Long contactId;
-        private String firstName;
-        private String lastName;
         private String phoneNumber;
         private String email;
         private LocalDate createDate;
+        private String altNumber;
 
         public Builder setContactId(Long contactId) {
             this.contactId = contactId;
-            return this;
-        }
-        public Builder setFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-        public Builder setLastName(String lastName) {
-            this.lastName = lastName;
             return this;
         }
         public Builder setPhoneNumber(String phoneNumber) {
@@ -85,13 +79,18 @@ public class Contact {
             this.createDate = createDate;
             return this;
         }
+
+        public Builder setAltNumber(String altNumber) {
+            this.altNumber = altNumber;
+            return this;
+        }
+
         public Builder copy(Contact contact) {
             this.contactId = contact.contactId;
-            this.firstName = contact.firstName;
-            this.lastName = contact.lastName;
             this.phoneNumber = contact.phoneNumber;
             this.email = contact.email;
             this.createDate = contact.createDate;
+            this.altNumber = contact.altNumber;
             return this;
         }
         public Contact build() {

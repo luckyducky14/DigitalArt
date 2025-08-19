@@ -33,11 +33,8 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public boolean delete(Long contactId) {
-        if (repository.existsByContactId(contactId)) {
-            repository.existsByContactId(contactId);
-            return true;
-        }
+    public boolean delete(Long aLong) {
+
         return false;
     }
 

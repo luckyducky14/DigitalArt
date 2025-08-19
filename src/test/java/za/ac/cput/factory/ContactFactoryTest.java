@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ContactFactoryTest {
 
-    private static Contact c1 = ContactFactory.createContact("James", "Carter", "0712345678", "james.carter@example.com");
-    private static Contact c2 = ContactFactory.createContact("Sophia", "Miller", "0823456789", "sophia.miller@example.com");
-    private static Contact c3 = ContactFactory.createContact("", "Adams", "0834567890", "invalid@example.com"); // Should fail
+    private static Contact c1 = ContactFactory.createContact("0712345678", "james.carter@example.com", "0725075082");
+    private static Contact c2 = ContactFactory.createContact("0823456789", "sophia.miller@example.com", "0647924284");
+    private static Contact c3 = ContactFactory.createContact("0834567890", "invalid@example.com", "0761921751");// Should fail
 
     @Test
     public void testCreateContact() {

@@ -23,7 +23,7 @@ class UserServiceTest {
 
     @BeforeAll
     static void setUp() {
-        user = UserFactory.createUser("John", "Doe", "Password123");
+        user = UserFactory.createUser("Doe", "John", "Password123", "john.doe@example.com", "0741234567", "0219876543");
     }
 
     @Test
