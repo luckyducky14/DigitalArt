@@ -23,7 +23,7 @@ public class OrderItemService implements IOrderItemService {
     }
 
     @Override
-    public OrderItem read(Integer itemID) {
+    public OrderItem read(Long itemID) {
         return repository.findById(itemID).orElse(null);
     }
 
@@ -33,12 +33,10 @@ public class OrderItemService implements IOrderItemService {
     }
 
     @Override
-    public boolean delete(Integer itemID) {
+    public void delete(Long itemID) {
         if (repository.existsById(itemID)) {
             repository.deleteById(itemID);
-            return true;
         }
-        return false;
     }
 
     @Override
