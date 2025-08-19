@@ -34,7 +34,7 @@ private static final String BASE_URL = "/cart_item/";
         user = new User.Builder()
                 .setFirstName("Thando")
                 .setLastName("Mseleku")
-                .setEmail("123@gmail.com")
+                //.setEmail("123@gmail.com")
                 .setPassword("password123")
                 .build();
 
@@ -43,7 +43,7 @@ private static final String BASE_URL = "/cart_item/";
                 .build();
 
         product = new Product.Builder()
-                .setProductID("P001")
+                .setProductID(1L)
                 .setTitle("Digital Art")
                 .setDescription("A beautiful digital painting")
                 .setPrice(49.99)

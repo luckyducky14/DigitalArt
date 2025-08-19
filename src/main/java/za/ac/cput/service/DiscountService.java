@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Discount;
 import za.ac.cput.repository.DiscountRepository;
-import za.ac.cput.service.DiscountService;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class DiscountService implements IDiscountService{
     }
 
     public void delete(Long discountID) {
-        this.repository.deleteById(discountID);
+        repository.deleteById(discountID);
     }
 
     public List<Discount> getAll() {

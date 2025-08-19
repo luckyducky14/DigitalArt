@@ -33,7 +33,7 @@ public class CartService implements ICartService{
     }
 
     public void delete(Long cartID) {  //use void
-        this.repository.deleteById(cartID);
+        repository.deleteById(cartID);
     }
 
     public List<Cart> getAll(){

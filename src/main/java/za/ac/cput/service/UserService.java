@@ -33,9 +33,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
-        return false;
     }
 
     @Override

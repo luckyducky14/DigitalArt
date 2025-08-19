@@ -18,10 +18,12 @@ public class Order {
     @Column(updatable = false)
    private double orderAmount;
     private LocalDateTime orderDate;
+
     @Embedded
     private Address shippingAddress;
-    @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     @Enumerated(EnumType.STRING)

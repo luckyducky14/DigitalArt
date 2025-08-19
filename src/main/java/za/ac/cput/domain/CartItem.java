@@ -24,8 +24,8 @@ public class CartItem {
     @JoinColumn(name = "productID")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     @Column(name = "quantity", nullable = false)

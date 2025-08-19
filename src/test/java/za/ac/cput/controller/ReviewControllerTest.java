@@ -35,20 +35,22 @@ private static final String BASE_URL = "http://localhost:8080/review";
       user = new User.Builder()
             .setFirstName("Thando")
             .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
+            //.setEmail("123@gmail.com")
             .setPassword("password123")
             .build();
 
       product = new Product.Builder()
-            .setProductID("P001")
+            .setProductID(1L)
             .setTitle("Digital Art")
             .setDescription("A beautiful digital painting")
             .setPrice(49.99)
             .setCategoryID("C001")
             .build();
 
-    review = ReviewFactory.createReview(user,product,5,"Exceptional painting",
-            LocalDate.now());
+    review = ReviewFactory.createReview(
+            5, "Exceptional painting", LocalDate.now(), user, product
+    );
+
 }
 
 

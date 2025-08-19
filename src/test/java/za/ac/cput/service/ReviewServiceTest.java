@@ -23,19 +23,21 @@ class ReviewServiceTest {
     static User user = new User.Builder()
             .setFirstName("Thando")
             .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
+            //.setEmail("123@gmail.com")
             .setPassword("password123")
             .build();
     static Product product = new Product.Builder()
-            .setProductID("P001")
+            .setProductID(1L)
             .setTitle("Digital Art")
             .setDescription("A beautiful digital painting")
             .setPrice(49.99)
             .setCategoryID("C001")
             .build();
 
-    private static Review review1 = ReviewFactory.createReview(user,product,2,"Poor design",
-            LocalDate.now());
+    private static Review review1 = ReviewFactory.createReview(
+            2, "Poor design", LocalDate.now(), user, product
+    );
+
 
     @Test
     @Order(1)
@@ -56,27 +58,24 @@ class ReviewServiceTest {
     @Test
     @Order(3)
     void update() {
-
         Review newReview = new Review.Builder().copy(review1).setComment("Bad design").build();
-         Review updated = reviewService.update(newReview);
-         assertEquals("Bad design", updated.getComment());
+        Review updated = reviewService.update(newReview);
+        assertEquals("Bad design", updated.getComment());
         System.out.println(updated);
     }
 
     @Test
     @Order(4)
     void delete() {
-   reviewService.delete(review1.getReviewId());
-   Review deleted = reviewService.read(review1.getReviewId());
-    assertNull(deleted);
-    System.out.println(" Review Deleted Successfully");
-
+        reviewService.delete(review1.getReviewId());
+        Review deleted = reviewService.read(review1.getReviewId());
+        assertNull(deleted);
+        System.out.println(" Review Deleted Successfully");
     }
 
     @Test
     @Order(5)
     void getAll() {
         System.out.println(reviewService.getAll());
-
     }
 }

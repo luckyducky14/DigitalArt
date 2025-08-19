@@ -7,7 +7,6 @@ Author: Mpilonhle Zimela Mzimela 230197833
 Date: 27 May 2025
 */
 
-import za.ac.cput.service.IOrderService;
 import za.ac.cput.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +42,7 @@ public class OrderService implements IOrderService {
     @Override
     public void delete(Long orderID) {
         repository.deleteById(orderID);
-
     }
-
-
-
-
 
     @Override
     public List<Order> getAll() {

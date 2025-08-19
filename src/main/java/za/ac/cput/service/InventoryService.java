@@ -34,7 +34,7 @@ public class InventoryService implements IInventoryService {
 
     @Override
     public void delete(Long id) {
-
+        repository.deleteById(id);
     }
 
     @Override

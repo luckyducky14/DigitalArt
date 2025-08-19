@@ -16,31 +16,30 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_Id", nullable = false)
-   private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
    @ManyToOne
-   @JoinColumn(name ="product_ID", nullable = false)
+   @JoinColumn(name ="productID", nullable = false)
    private Product product;
 
-private int rating;
-private String comment;
-private LocalDate reviewDate;
+    private int rating;
+    private String comment;
+    private LocalDate reviewDate;
 
-protected Review() {
+    protected Review() {
+    }
 
-}
+    public Review(Builder builder){
+        this.reviewId = builder.reviewId;
+        this.user = builder.user;
+        this.product = builder.product;
+        this.rating = builder.rating;
+        this.comment = builder.comment;
+        this.reviewDate = builder.reviewDate;
 
-public Review(Builder builder){
-    this.reviewId = builder.reviewId;
-    this.user = builder.user;
-    this.product = builder.product;
-    this.rating = builder.rating;
-    this.comment = builder.comment;
-    this.reviewDate = builder.reviewDate;
-
-}
+    }
     public Long getReviewId() {
         return reviewId;
     }
@@ -78,12 +77,12 @@ public Review(Builder builder){
     }
 
     public static class Builder{
-    private Long reviewId;
-    private User user;
-    private Product product;
-    private int rating;
-    private String comment;
-    private LocalDate reviewDate;
+        private Long reviewId;
+        private User user;
+        private Product product;
+        private int rating;
+        private String comment;
+        private LocalDate reviewDate;
 
         public Builder setReviewId(Long reviewId) {
             this.reviewId = reviewId;

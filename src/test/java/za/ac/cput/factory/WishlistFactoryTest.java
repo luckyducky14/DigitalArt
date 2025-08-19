@@ -51,7 +51,7 @@ class WishlistFactoryTest {
                 .build();
 
         Product product = new Product.Builder()
-                .setProductID("P123")
+                .setProductID(123L)
                 .setTitle("Test Product")
                 .setDescription("Sample product")
                 .setPrice(50.0)

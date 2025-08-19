@@ -41,7 +41,7 @@ public class CartItemService implements ICartItemService {
 
     @Override
     public void delete(Long cartItemId) {
-        this.cartItemRepository.deleteById(cartItemId);
+        cartItemRepository.deleteById(cartItemId);
     }
 
     @Override

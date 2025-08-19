@@ -4,6 +4,5 @@ import za.ac.cput.domain.Contact;
 import java.util.List;
 
 public interface IContactService extends IService<Contact, Long> {
-    boolean delete(Long contactId);
     List<Contact> getAll();
 }

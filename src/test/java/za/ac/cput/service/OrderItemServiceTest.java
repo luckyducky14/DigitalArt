@@ -19,11 +19,11 @@ class OrderItemServiceTest {
     private IOrderItemService service;
 
     static Order order = new Order.Builder()
-            .setOrderID(123)
+            .setOrderID(123L)
             .build();
 
     static Product product = new Product.Builder()
-            .setProductID("P456")
+            .setProductID(456L)
             .build();
 
     private final OrderItem orderItem = OrderItemFactory.createOrderItem(order.getOrderID(), product,5,19.99);

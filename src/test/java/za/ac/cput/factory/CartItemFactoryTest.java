@@ -23,7 +23,7 @@ class CartItemFactoryTest {
     private static final User user = new User.Builder()
             .setFirstName("Thando")
             .setLastName("Mseleku")
-            .setEmail("123@gmail.com")
+            //.setEmail("123@gmail.com")
             .setPassword("password123")
             .build();
 
@@ -31,7 +31,7 @@ class CartItemFactoryTest {
             .setUserID(user)
             .build();
     private static final Product product = new Product.Builder()
-            .setProductID("P001")
+            .setProductID(101L)
             .setTitle("Digital Art")
             .setDescription("A beautiful digital painting")
             .setPrice(49.99)
