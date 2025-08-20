@@ -8,8 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Product;
 import za.ac.cput.domain.User;
 import za.ac.cput.domain.Wishlist;
+import za.ac.cput.domain.enums.Role;
 import za.ac.cput.factory.WishlistFactory;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,10 @@ class WishlistServiceTest {
             .setUserId(1L)
             .setFirstName("John")
             .setLastName("Doe")
+            .setPassword("password123")
+            .setRole(Role.CUSTOMER)
+            .setCreateDate(LocalDate.now())
+            .setLastLogin(LocalDateTime.now())
             .build();
 
     static Product product = new Product.Builder()
@@ -33,7 +40,7 @@ class WishlistServiceTest {
             .setTitle("Sample Product")
             .setDescription("Description")
             .setPrice(50.0)
-            .setCategoryID("C1")
+            .setCategoryID(100L)
             .build();
 
     private final Wishlist wishlist;
@@ -50,6 +57,7 @@ class WishlistServiceTest {
     void a_create() {
         Wishlist created = service.create(wishlist);
         assertNotNull(created);
+        assertEquals(user.getUserId(), created.getUser().getUserId());
         System.out.println("Created: " + created);
     }
 
@@ -57,6 +65,7 @@ class WishlistServiceTest {
     void b_read() {
         Wishlist read = service.read(wishlist.getWishlistID());
         assertNotNull(read);
+        assertEquals(wishlist.getWishlistID(), read.getWishlistID());
         System.out.println("Read: " + read);
     }
 
@@ -68,7 +77,7 @@ class WishlistServiceTest {
                 .setTitle("Updated Product")
                 .setDescription("Updated Description")
                 .setPrice(75.0)
-                .setCategoryID("C2")
+                .setCategoryID(100L)
                 .build();
         updatedProducts.add(newProduct);
 

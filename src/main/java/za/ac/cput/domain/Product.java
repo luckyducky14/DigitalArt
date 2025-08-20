@@ -10,77 +10,64 @@ Date: 25 May 2025
 */
 @Entity
 @Table(name ="products")
-public class  Product {
+public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productID;
-    private String categoryID;
+    private Long categoryID;
     private String title;
     private String description;
     private double price;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems;
 
-    public Product(){
+    protected Product() {
     }
 
-    public Product (Builder builder){
+    private Product(Builder builder) {
         this.productID = builder.productID;
+        this.categoryID = builder.categoryID;
         this.title = builder.title;
         this.description = builder.description;
         this.price = builder.price;
-        this.categoryID = builder.categoryID;
-
     }
 
-
-    public Long getProductID() {
-        return productID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public String getCategoryID() {
-        return categoryID;
-    }
+    public Long getProductID() { return productID; }
+    public Long getCategoryID() { return categoryID; }
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public double getPrice() { return price; }
 
     @Override
     public String toString() {
         return "Product{" +
-                "productID='" + productID + '\'' +
+                "productID=" + productID +
+                ", categoryID=" + categoryID +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", categoryID='" + categoryID + '\'' +
                 '}';
     }
 
-
-    public static class Builder{
-
+    public static class Builder {
         private Long productID;
+        private Long categoryID;
         private String title;
         private String description;
         private double price;
-        private String categoryID;
 
         public Builder setProductID(Long productID) {
             this.productID = productID;
             return this;
         }
 
-        public Builder setCategoryID(String categoryID) {
+        public Builder setCategoryID(Long categoryID) {
             this.categoryID = categoryID;
             return this;
         }
@@ -100,7 +87,7 @@ public class  Product {
             return this;
         }
 
-        public Builder copy(Product product){
+        public Builder copy(Product product) {
             this.productID = product.productID;
             this.categoryID = product.categoryID;
             this.title = product.title;
@@ -108,9 +95,10 @@ public class  Product {
             this.price = product.price;
             return this;
         }
-        public Product build(){
+
+        public Product build() {
             return new Product(this);
         }
     }
-
 }
+
