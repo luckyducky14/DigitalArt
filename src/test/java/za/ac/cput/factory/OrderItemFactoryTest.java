@@ -23,7 +23,7 @@ class OrderItemFactoryTest {
                 .setTitle("Test Product")
                 .setDescription("Sample description")
                 .setPrice(50.0)
-                .setCategoryID("C1")
+                .setCategoryID(456L)
                 .build();
 
         OrderItem orderItem = OrderItemFactory.createOrderItem(1L, product, 2, 50.0);
@@ -42,7 +42,7 @@ class OrderItemFactoryTest {
                 .setTitle("Test Product")
                 .setDescription("Sample description")
                 .setPrice(50.0)
-                .setCategoryID("C1")
+                .setCategoryID(456L)
                 .build();
 
         assertThrows(IllegalArgumentException.class, () ->
@@ -64,7 +64,7 @@ class OrderItemFactoryTest {
                 .setTitle("Test Product")
                 .setDescription("Sample description")
                 .setPrice(50.0)
-                .setCategoryID("C1")
+                .setCategoryID(456L)
                 .build();
 
         assertThrows(IllegalArgumentException.class, () ->
@@ -79,7 +79,7 @@ class OrderItemFactoryTest {
                 .setTitle("Test Product")
                 .setDescription("Sample description")
                 .setPrice(50.0)
-                .setCategoryID("C1")
+                .setCategoryID(456L)
                 .build();
 
         assertThrows(IllegalArgumentException.class, () ->

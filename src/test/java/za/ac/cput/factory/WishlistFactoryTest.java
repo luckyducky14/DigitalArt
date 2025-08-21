@@ -55,7 +55,7 @@ class WishlistFactoryTest {
                 .setTitle("Test Product")
                 .setDescription("Sample product")
                 .setPrice(50.0)
-                .setCategoryID("C1")
+                .setCategoryID(456L)
                 .build();
 
         List<Product> products = new ArrayList<>();
