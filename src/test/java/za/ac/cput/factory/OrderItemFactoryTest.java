@@ -6,86 +6,105 @@ Author: Thimma Gogwana 222213973
 Date: 25 May 2025
 */
 
-import za.ac.cput.domain.OrderItem;
+import za.ac.cput.controller.ProductController;
+import za.ac.cput.domain.Category;
 import za.ac.cput.domain.Product;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import za.ac.cput.factory.OrderItemFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.repository.CategoryRepository;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrderItemFactoryTest {
+@SpringBootTest
+class ProductControllerTest {
 
-    @Test
-    void createOrderItem_ValidParameters_ShouldCreateSuccessfully() {
-        Product product = new Product.Builder()
-                .setProductID(123L)
-                .setTitle("Test Product")
-                .setDescription("Sample description")
-                .setPrice(50.0)
-                .setCategoryID(456L)
-                .build();
+    @Autowired
+    private ProductController productController;
 
-        OrderItem orderItem = OrderItemFactory.createOrderItem(1L, product, 2, 50.0);
+    @Autowired
+    private ProductFactory productFactory;
 
-        assertNotNull(orderItem, "OrderItem should not be null");
-        assertEquals(2, orderItem.getQuantity(), "Quantity should match");
-        assertEquals(50.0, orderItem.getUnitPrice(), "Unit price should match");
-        assertEquals(100.0, orderItem.getSubTotal(), "SubTotal should be calculated correctly");
-        assertEquals(product, orderItem.getProduct(), "Product should match the one provided");
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    private static Product product1;
+    private static Category testCategory;
+
+    @BeforeAll
+    static void setUp(@Autowired ProductFactory productFactory,
+                      @Autowired CategoryRepository categoryRepository) {
+        // Create and persist a test category
+        testCategory = categoryRepository.save(
+                new Category.Builder()
+                        .setName("Art")
+                        .setDescription("Art-related items")
+                        .build()
+        );
+
+        // Create product linked to the category
+        product1 = productFactory.create(
+                1L,
+                testCategory,
+                "Portrait Art",
+                "Digital portrait of a person",
+                150.0
+        );
     }
 
     @Test
-    void createOrderItem_InvalidOrderID_ShouldThrowException() {
-        Product product = new Product.Builder()
-                .setProductID(123L)
-                .setTitle("Test Product")
-                .setDescription("Sample description")
-                .setPrice(50.0)
-                .setCategoryID(456L)
-                .build();
-
-        assertThrows(IllegalArgumentException.class, () ->
-                        OrderItemFactory.createOrderItem(-1L, product, 2, 50.0),
-                "Negative orderID should throw IllegalArgumentException");
+    void a_create() {
+        Product created = productController.create(product1);
+        assertNotNull(created);
+        assertEquals("Portrait Art", created.getTitle());
+        assertEquals(testCategory.getCategoryId(), created.getCategory().getCategoryId());
+        System.out.println("Controller created product: " + created);
     }
 
     @Test
-    void createOrderItem_NullProduct_ShouldThrowException() {
-        assertThrows(IllegalArgumentException.class, () ->
-                        OrderItemFactory.createOrderItem(1L, null, 2, 50.0),
-                "Null product should throw IllegalArgumentException");
+    void b_read() {
+        Product read = productController.read(product1.getProductID());
+        assertNotNull(read);
+        assertEquals(product1.getProductID(), read.getProductID());
+        assertEquals(testCategory.getCategoryId(), read.getCategory().getCategoryId());
+        System.out.println("Controller read product: " + read);
     }
 
     @Test
-    void createOrderItem_InvalidQuantity_ShouldThrowException() {
-        Product product = new Product.Builder()
-                .setProductID(123L)
-                .setTitle("Test Product")
-                .setDescription("Sample description")
-                .setPrice(50.0)
-                .setCategoryID(456L)
+    void c_update() {
+        Product updated = new Product.Builder()
+                .copy(product1)
+                .setPrice(175.0)
                 .build();
-
-        assertThrows(IllegalArgumentException.class, () ->
-                        OrderItemFactory.createOrderItem(1L, product, -5, 50.0),
-                "Negative quantity should throw IllegalArgumentException");
+        Product result = productController.update(updated);
+        assertNotNull(result);
+        assertEquals(175.0, result.getPrice());
+        System.out.println("Controller updated product: " + result);
     }
 
     @Test
-    void createOrderItem_InvalidUnitPrice_ShouldThrowException() {
-        Product product = new Product.Builder()
-                .setProductID(1L)
-                .setTitle("Test Product")
-                .setDescription("Sample description")
-                .setPrice(50.0)
-                .setCategoryID(456L)
-                .build();
+    void d_getAll() {
+        List<Product> all = productController.getAll();
+        assertFalse(all.isEmpty());
+        System.out.println("Controller all products: " + all);
+    }
 
-        assertThrows(IllegalArgumentException.class, () ->
-                        OrderItemFactory.createOrderItem(1L, product, 2, -10.0),
-                "Negative unit price should throw IllegalArgumentException");
+    @Test
+    void e_getByCategory() {
+        List<Product> byCategory = productController.getByCategory(testCategory);
+        assertFalse(byCategory.isEmpty());
+        assertEquals(testCategory.getCategoryId(), byCategory.get(0).getCategory().getCategoryId());
+        System.out.println("Controller products by category " + testCategory.getCategoryId() + ": " + byCategory);
+    }
+
+    @Test
+    void f_searchByTitle() {
+        List<Product> found = productController.searchByTitle("Portrait");
+        assertFalse(found.isEmpty());
+        assertTrue(found.stream().anyMatch(p -> p.getTitle().contains("Portrait")));
+        System.out.println("Controller products found with 'Portrait': " + found);
     }
 }
-
-

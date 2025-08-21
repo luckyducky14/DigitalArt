@@ -2,9 +2,10 @@ package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.domain.Category;
 import za.ac.cput.domain.Product;
 import za.ac.cput.service.IProductService;
-import za.ac.cput.service.ProductService;
+
 
 import java.util.List;
 
@@ -46,9 +47,9 @@ public class ProductController {
 
     // Custom queries
 
-    @GetMapping("/category/{categoryId}")
-    public List<Product> getByCategory(@PathVariable Long categoryId) {
-        return service.getByCategory(categoryId);
+    @GetMapping("/category")
+    public List<Product> getByCategory(@PathVariable Category category) {
+        return service.getByCategory(category);
     }
 
     @GetMapping("/search")

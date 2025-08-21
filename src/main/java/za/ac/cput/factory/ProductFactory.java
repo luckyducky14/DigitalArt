@@ -7,16 +7,16 @@ Author: Thimna Gogwana 222213973
 Date: 25 May 2025
 */
 
-import za.ac.cput.domain.Product;
 import za.ac.cput.domain.Category;
+import za.ac.cput.domain.Product;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductFactory {
-    public Product create(Long productID, Long categoryID, String title, String description, double price) {
+    public Product create(Long productID, Category category, String title, String description, double price) {
         return new Product.Builder()
                 .setProductID(productID)
-                .setCategoryID(categoryID)
+                .setCategory(category)
                 .setTitle(title)
                 .setDescription(description)
                 .setPrice(price)

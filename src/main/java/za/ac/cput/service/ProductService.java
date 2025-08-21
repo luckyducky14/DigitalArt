@@ -1,6 +1,7 @@
 package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import za.ac.cput.domain.Category;
 import za.ac.cput.domain.Product;
 import za.ac.cput.repository.ProductRepository;
 
@@ -42,8 +43,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getByCategory(Long categoryId) {
-        return repository.findByCategoryID(categoryId);
+    public List<Product> getByCategory(Category category) {
+        return repository.findByCategory(category);
     }
 
     @Override

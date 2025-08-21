@@ -14,7 +14,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productID;
-    private Long categoryID;
+
     private String title;
     private String description;
     private double price;
@@ -32,14 +32,14 @@ public class Product {
 
     private Product(Builder builder) {
         this.productID = builder.productID;
-        this.categoryID = builder.categoryID;
+        this.category = builder.category;
         this.title = builder.title;
         this.description = builder.description;
         this.price = builder.price;
     }
 
     public Long getProductID() { return productID; }
-    public Long getCategoryID() { return categoryID; }
+    public Category getCategory() { return category; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public double getPrice() { return price; }
@@ -48,7 +48,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "productID=" + productID +
-                ", categoryID=" + categoryID +
+                ", categoryID=" + (category != null ? category.getCategoryId() : null) +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
@@ -57,7 +57,7 @@ public class Product {
 
     public static class Builder {
         private Long productID;
-        private Long categoryID;
+        private Category category;
         private String title;
         private String description;
         private double price;
@@ -67,8 +67,8 @@ public class Product {
             return this;
         }
 
-        public Builder setCategoryID(Long categoryID) {
-            this.categoryID = categoryID;
+        public Builder setCategory(Category category) {
+            this.category = category;
             return this;
         }
 
@@ -89,7 +89,7 @@ public class Product {
 
         public Builder copy(Product product) {
             this.productID = product.productID;
-            this.categoryID = product.categoryID;
+            this.category = product.category;
             this.title = product.title;
             this.description = product.description;
             this.price = product.price;

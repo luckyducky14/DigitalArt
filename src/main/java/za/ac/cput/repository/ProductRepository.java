@@ -1,5 +1,6 @@
 package za.ac.cput.repository;
 
+import za.ac.cput.domain.Category;
 import za.ac.cput.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    List<Product> findByCategoryID(Long categoryID);
+    List<Product> findByCategory(Category category);
 
     List<Product> findByPriceBetween(double minPrice, double maxPrice);
 
