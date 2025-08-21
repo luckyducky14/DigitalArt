@@ -76,13 +76,18 @@ public class Helper {
         return categoryID != null && !categoryID.trim().isEmpty() && categoryID.matches("cat-\\d+");
     }
 
+    public static boolean isValidCategoryID(Long categoryId) {
+        return categoryId != null && categoryId > 0;
+    }
+
+
     public static boolean isValidProduct(Product product) {
         return product != null &&
                 //isValidProductID(product.getProductID()) &&
                 isValidTitle(product.getTitle()) &&
                 (product.getDescription() == null || isValidDescription(product.getDescription())) &&
                 isValidPrice(product.getPrice()) &&
-                (product.getCategoryID() == null || isValidCategoryID(product.getCategoryID()));
+                (product.getCategory() == null || isValidCategoryID(product.getCategory().getCategoryId()));
     }
      public static String generateId() {
         return UUID.randomUUID().toString();
