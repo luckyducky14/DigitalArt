@@ -8,8 +8,6 @@ Date: 08 May 2025
 */
 
 import jakarta.persistence.*;
-
-//import javax.management.relation.Role;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import za.ac.cput.domain.enums.Role;
@@ -20,6 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     private String lastName;
@@ -35,7 +34,6 @@ public class User {
     @JoinColumn(name = "contact_email", referencedColumnName = "email")
     private Contact contact;
 
-
     // Protected default constructor for JPA
     protected User() {}
 
@@ -47,10 +45,10 @@ public class User {
         this.role = builder.role;
         this.lastLogin = builder.lastLogin;
         this.createDate = builder.createDate;
-
+        this.contact = builder.contact;
     }
 
-    // Getters
+    // ====== Getters ======
     public Long getUserId() { return userId; }
     public String getLastName() { return lastName; }
     public String getFirstName() { return firstName; }
@@ -59,6 +57,16 @@ public class User {
     public LocalDateTime getLastLogin() { return lastLogin; }
     public LocalDate getCreateDate() { return createDate; }
     public Contact getContact() { return contact; }
+
+    // ====== Setters ======
+    public void setUserId(Long userId) { this.userId = userId; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setPassword(String password) { this.password = password; }
+    public void setRole(Role role) { this.role = role; }
+    public void setLastLogin(LocalDateTime lastLogin) { this.lastLogin = lastLogin; }
+    public void setCreateDate(LocalDate createDate) { this.createDate = createDate; }
+    public void setContact(Contact contact) { this.contact = contact; }
 
     @Override
     public String toString() {
@@ -74,9 +82,9 @@ public class User {
                 '}';
     }
 
-    // Builder pattern
+    // ====== Builder Pattern ======
     public static class Builder {
-        private Long userId; //long
+        private Long userId;
         private String lastName;
         private String firstName;
         private String password;
@@ -113,7 +121,6 @@ public class User {
             this.createDate = createDate;
             return this;
         }
-
         public Builder setContact(Contact contact) {
             this.contact = contact;
             return this;
