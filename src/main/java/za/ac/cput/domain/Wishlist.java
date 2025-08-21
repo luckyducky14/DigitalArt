@@ -11,7 +11,7 @@ public class Wishlist {
     private Long wishlistID;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId") // ✅ was "Join Column"
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -25,6 +25,7 @@ public class Wishlist {
     protected Wishlist() {}
 
     public Wishlist(Builder builder) {
+        this.wishlistID = builder.wishlistID; // ✅ include wishlistID from builder
         this.user = builder.user;
         this.products = builder.products;
     }
@@ -45,15 +46,20 @@ public class Wishlist {
     public String toString() {
         return "Wishlist{" +
                 "wishlistID=" + wishlistID +
-                ", user=" + user +
+                ", user=" + (user != null ? user.getUserId() : null) +
                 ", products=" + products +
                 '}';
     }
 
     public static class Builder {
-
+        private Long wishlistID;
         private User user;
         private List<Product> products;
+
+        public Builder setWishlistID(Long wishlistID) {
+            this.wishlistID = wishlistID;
+            return this;
+        }
 
         public Builder setUser(User user) {
             this.user = user;
@@ -66,6 +72,7 @@ public class Wishlist {
         }
 
         public Builder copy(Wishlist wishlist) {
+            this.wishlistID = wishlist.wishlistID;
             this.user = wishlist.user;
             this.products = wishlist.products;
             return this;
@@ -76,4 +83,3 @@ public class Wishlist {
         }
     }
 }
-

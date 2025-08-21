@@ -29,9 +29,19 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus paymentStatus;
 
+
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
     private List<CartItem> cartItems;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     protected Order() {}
 
@@ -97,6 +107,7 @@ public class Order {
 
         private OrderStatus paymentStatus;
         private List<CartItem> cartItems;
+        private User user;
 
         public Builder setOrderID(Long orderID) {
             this.orderID = orderID;
@@ -143,7 +154,12 @@ public class Order {
         }
 
         public Order build() {
-            return new Order(this);
+            Order order = new Order(this);
+            order.user = this.user;
+            return order;
+            //return new Order(this);
+
+
         }
     }
 }

@@ -12,7 +12,7 @@ public class WishlistService implements IWishlistService {
 
     private final WishlistRepository repository;
 
-    @Autowired
+
     public WishlistService(WishlistRepository repository) {
         this.repository = repository;
     }
@@ -40,5 +40,11 @@ public class WishlistService implements IWishlistService {
     public List<Wishlist> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public List<Wishlist> getUserWishList(Long userId) {
+        return repository.findByUser(userId);
+    }
 }
+
 
