@@ -70,7 +70,6 @@ class WishlistControllerTest {
                 .setTitle("Updated Product")
                 .setDescription("Updated")
                 .setPrice(100.0)
-                .setCategoryID(456L)
                 .build();
         newProducts.add(product);
 

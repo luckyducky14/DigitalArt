@@ -18,7 +18,7 @@ class WishlistFactoryTest {
     void createWishlist() {
         Wishlist wishlist = WishlistFactory.createWishlist(1L, null, null);
         assertNotNull(wishlist);
-        assertEquals("W123", wishlist.getWishlistID());
+        assertEquals(1L, wishlist.getWishlistID());
         assertNull(wishlist.getUser());
         assertNull(wishlist.getProducts());
     }
@@ -37,7 +37,7 @@ class WishlistFactoryTest {
         List<Product> emptyProducts = new ArrayList<>();
         Wishlist wishlist = WishlistFactory.createWishlist(1L, null, emptyProducts);
         assertNotNull(wishlist);
-        assertEquals("W123", wishlist.getWishlistID());
+        assertEquals(1L, wishlist.getWishlistID());
         assertNull(wishlist.getUser());
         assertEquals(0, wishlist.getProducts().size());
     }
@@ -55,7 +55,6 @@ class WishlistFactoryTest {
                 .setTitle("Test Product")
                 .setDescription("Sample product")
                 .setPrice(50.0)
-                .setCategoryID(456L)
                 .build();
 
         List<Product> products = new ArrayList<>();
@@ -64,7 +63,7 @@ class WishlistFactoryTest {
         Wishlist wishlist = WishlistFactory.createWishlist(1L, user, products);
 
         assertNotNull(wishlist);
-        assertEquals("W123", wishlist.getWishlistID());
+        assertEquals(1L, wishlist.getWishlistID());
         assertEquals(user, wishlist.getUser());
         assertEquals(1, wishlist.getProducts().size());
         assertEquals(product, wishlist.getProducts().get(0));

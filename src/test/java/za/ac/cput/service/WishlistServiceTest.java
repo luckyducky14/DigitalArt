@@ -40,7 +40,6 @@ class WishlistServiceTest {
             .setTitle("Sample Product")
             .setDescription("Description")
             .setPrice(50.0)
-            .setCategoryID(100L)
             .build();
 
     private final Wishlist wishlist;
@@ -77,7 +76,7 @@ class WishlistServiceTest {
                 .setTitle("Updated Product")
                 .setDescription("Updated Description")
                 .setPrice(75.0)
-                .setCategoryID(100L)
+
                 .build();
         updatedProducts.add(newProduct);
 
