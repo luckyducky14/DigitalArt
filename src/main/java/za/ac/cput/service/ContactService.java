@@ -33,9 +33,8 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public boolean delete(Long aLong) {
+    public void delete(Long aLong) {
 
-        return false;
     }
 
     @Override
