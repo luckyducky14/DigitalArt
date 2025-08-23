@@ -23,7 +23,7 @@ public class Order {
     private Address shippingAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId", nullable = true)
     private User user;
 
     @Enumerated(EnumType.STRING)
@@ -86,7 +86,7 @@ public class Order {
         return "Order{" +
                 "orderID=" + orderID +
 
-                ", cartItems=" + cartItems +
+                //", cartItems=" + cartItems +
                 ", totalAmount=" + totalAmount +
                 ", orderDate=" + orderDate +
                 " orderAmount=" + orderAmount +

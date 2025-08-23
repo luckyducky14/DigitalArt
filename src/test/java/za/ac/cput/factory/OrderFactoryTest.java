@@ -125,7 +125,7 @@ class OrderFactoryTest {
         Long orderID = 3L;
         double orderAmount = 0.0;
 
-        List<CartItem> cartItems = List.of(); // empty list
+        List<CartItem> cartItems = List.of();
         double totalAmount = 0.0;
         LocalDateTime orderDate = LocalDateTime.now();
         OrderStatus paymentStatus = OrderStatus.CANCELLED;

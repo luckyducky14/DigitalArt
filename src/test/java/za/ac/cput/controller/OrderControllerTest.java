@@ -31,7 +31,7 @@ public class OrderControllerTest {
     @Test
     void testCreateOrder() {
         Order order = new Order.Builder()
-                .setOrderID(101L)
+               // .setOrderID(101L)
                 .setOrderAmount(120.0)
                 .setTotalAmount(150.0)
                 .setOrderDate(LocalDateTime.now())
@@ -52,7 +52,7 @@ public class OrderControllerTest {
     void testReadOrder() {
 
         Order order = new Order.Builder()
-                .setOrderID(102L)
+               // .setOrderID(102L)
 
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(200.0)
@@ -77,7 +77,7 @@ public class OrderControllerTest {
     void testUpdateOrder() {
 
         Order order = new Order.Builder()
-                .setOrderID(103L)
+               // .setOrderID(103L)
 
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(250.0)
@@ -111,7 +111,7 @@ public class OrderControllerTest {
     void testDeleteOrder() {
 
         Order order = new Order.Builder()
-                .setOrderID(104L)
+                //.setOrderID(104L)
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(300.0)
                 .setOrderDate(LocalDateTime.now())

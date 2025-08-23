@@ -38,16 +38,16 @@ public class OrderServiceTest {
         repository.deleteAll();
         userRepository.deleteAll();
 
-        // Create and persist a dummy user
+
         dummyUser = new User.Builder()
                 .setFirstName("Test")
                 .setLastName("User")
                 .setPassword("password")
                 .setRole(za.ac.cput.domain.enums.Role.CUSTOMER)
                 .build();
-        dummyUser = userRepository.save(dummyUser); // persist user first
+        dummyUser = userRepository.save(dummyUser);
 
-        // Create an order and assign the persisted user
+
         testOrder = new Order.Builder()
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(200.00)
@@ -55,9 +55,9 @@ public class OrderServiceTest {
                 .setOrderDate(LocalDateTime.now())
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
-        testOrder.setUser(dummyUser); // assign user before saving
+        testOrder.setUser(dummyUser);
 
-        service.create(testOrder); // persist order
+        service.create(testOrder);
     }
 
     @Test

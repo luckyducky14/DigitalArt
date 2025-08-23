@@ -20,7 +20,7 @@ public class OrderFactory {
         }
 
         return new Order.Builder()
-                .setOrderID(orderID)
+                //.setOrderID(orderID)
                 .setCartItem(cartItems)
                 .setTotalAmount(totalAmount)
                 .setOrderDate(orderDate)
