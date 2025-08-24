@@ -1,81 +1,153 @@
 package za.ac.cput.service;
 
-import org.junit.jupiter.api.MethodOrderer;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Review;
-import za.ac.cput.domain.User;
+import za.ac.cput.domain.*;
 import za.ac.cput.factory.ReviewFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ReviewServiceTest {
+
     @Autowired
-    private IReviewService reviewService;
+    private ReviewService reviewService;
 
-    static User user = new User.Builder()
-            .setFirstName("Thando")
-            .setLastName("Mseleku")
-            //.setEmail("123@gmail.com")
-            .setPassword("password123")
-            .build();
-    static Product product = new Product.Builder()
-            .setProductID(1L)
-            .setTitle("Digital Art")
-            .setDescription("A beautiful digital painting")
-            .setPrice(49.99)
-            .setCategoryID("C001")
-            .build();
+    @Autowired
+    private UserService userService;
 
-    private static Review review1 = ReviewFactory.createReview(
-            2, "Poor design", LocalDate.now(), user, product
-    );
+    @Autowired
+    private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    private User savedUser;
+    private Category savedCategory;
+    private Product savedProduct;
+    private Review savedReview;
+
+    @BeforeAll
+    void setup() {
+
+        savedUser = userService.create(new User.Builder()
+                .setFirstName("Thando")
+                .setLastName("Mseleku")
+                .setPassword("password123")
+                .setLastLogin(LocalDateTime.now())
+                .setCreateDate(LocalDate.of(2025,05,24))
+                .build());
+
+        assertNotNull(savedUser, "User must be saved successfully");
+
+
+        savedCategory = categoryService.create(new Category.Builder()
+                .setName("Paintings")
+                .setDescription("Digital Painting Category")
+                .build());
+
+        assertNotNull(savedCategory, "Category must be saved successfully");
+
+
+        savedProduct = productService.create(new Product.Builder()
+                .setTitle("Sunset Art")
+                .setDescription("A beautiful digital sunset painting")
+                .setPrice(59.99)
+                .setCategory(savedCategory)
+                .build());
+
+        assertNotNull(savedProduct, "Product must be saved successfully");
+    }
 
     @Test
     @Order(1)
-    void create() {
-        Review created = reviewService.create(review1);
-        assertNotNull(created);
-        assertNotNull(created);
+    void testCreateReview() {
+        Review review = ReviewFactory.createReview(
+                5,
+                "I am impressed with this art,definetly buying soonn again!",
+                LocalDate.now(),
+                savedUser,
+                savedProduct
+        );
+
+        assertNotNull(review, "Factory returned null; check rating, comment, user, and product");
+
+        savedReview = reviewService.create(review);
+
+        assertNotNull(savedReview, " review must not be null");
+        assertNotNull(savedReview.getReviewId(), "Review ID should be generated");
+        assertEquals(5, savedReview.getRating());
+
+        System.out.println("Created Review: " + savedReview);
     }
 
     @Test
     @Order(2)
-    void read() {
-        Review read = reviewService.read(review1.getReviewId());
-        assertNotNull(read);
-        System.out.println(read);
+    @Transactional
+    void testReadReview() {
+        assertNotNull(savedReview, "savedReview must exist before reading");
+
+        Review review = reviewService.read(savedReview.getReviewId());
+
+        assertNotNull(review, "Review read should not be null");
+        assertEquals("Amazing quality artwork!", review.getComment());
+
+        System.out.println("Read Review: " + review);
     }
 
     @Test
     @Order(3)
-    void update() {
-        Review newReview = new Review.Builder().copy(review1).setComment("Bad design").build();
-        Review updated = reviewService.update(newReview);
-        assertEquals("Bad design", updated.getComment());
-        System.out.println(updated);
+    @Transactional
+    void testUpdateReview() {
+        assertNotNull(savedReview, "savedReview must exist before update");
+
+        Review updatedReview = new Review.Builder()
+                .copy(savedReview)
+                .setRating(4)
+                .setComment("Great art, but shipping was slow")
+                .build();
+
+        savedReview = reviewService.update(updatedReview);
+
+        assertNotNull(savedReview, "Updated review must not be null");
+        assertEquals(4, savedReview.getRating());
+        assertEquals("Great art, but shipping was slow", savedReview.getComment());
+
+        System.out.println("Updated Review: " + savedReview);
     }
 
     @Test
     @Order(4)
-    void delete() {
-        reviewService.delete(review1.getReviewId());
-        Review deleted = reviewService.read(review1.getReviewId());
-        assertNull(deleted);
-        System.out.println(" Review Deleted Successfully");
+    @Transactional
+    void testGetAllReviews() {
+        List<Review> allReviews = reviewService.getAll();
+
+        assertFalse(allReviews.isEmpty(), "Review list should not be empty");
+        assertTrue(allReviews.stream().anyMatch(r -> r.getReviewId().equals(savedReview.getReviewId())));
+
+        System.out.println("All Reviews: " + allReviews);
     }
 
     @Test
     @Order(5)
-    void getAll() {
-        System.out.println(reviewService.getAll());
+    void testDeleteReview() {
+        assertNotNull(savedReview, "savedReview must exist before deletion");
+
+        reviewService.delete(savedReview.getReviewId());
+
+        Review deleted = reviewService.read(savedReview.getReviewId());
+        assertNull(deleted, "Deleted review should not be found");
+
+        System.out.println("Deleted Review with ID: " + savedReview.getReviewId());
     }
+
 }

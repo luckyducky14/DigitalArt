@@ -1,7 +1,9 @@
 package za.ac.cput.domain;
+
 import jakarta.persistence.*;
 
 import java.util.List;
+
 /*
 Product.java
 Product POJO class
@@ -9,10 +11,11 @@ Author: Thimna Gogwana (222213973)
 Date: 25 May 2025
 */
 @Entity
-@Table(name ="products")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "productId")
     private Long productID;
 
     private String title;
@@ -21,7 +24,7 @@ public class Product {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToMany(mappedBy = "product")
@@ -38,11 +41,25 @@ public class Product {
         this.price = builder.price;
     }
 
-    public Long getProductID() { return productID; }
-    public Category getCategory() { return category; }
-    public String getTitle() { return title; }
-    public String getDescription() { return description; }
-    public double getPrice() { return price; }
+    public Long getProductID() {
+        return productID;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 
     @Override
     public String toString() {

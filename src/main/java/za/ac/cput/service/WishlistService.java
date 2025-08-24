@@ -1,6 +1,7 @@
 package za.ac.cput.service;
 
 import org.springframework.stereotype.Service;
+import za.ac.cput.domain.User;
 import za.ac.cput.domain.Wishlist;
 import za.ac.cput.repository.WishlistRepository;
 
@@ -41,8 +42,13 @@ public class WishlistService implements IWishlistService {
     }
 
     @Override
-    public List<Wishlist> getUserWishList(Long userId) {
+    public List<Wishlist> getUserWishList(User userId) {
         return repository.findByUser(userId);
+    }
+
+    @Override
+    public List<Wishlist> getUserWishList(Long UserId) {
+        return List.of();
     }
 }
 
