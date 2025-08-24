@@ -6,10 +6,8 @@ Author: Thandolwethu P Mseleku
 Date: 18 May 2025
 */
 import org.junit.jupiter.api.*;
-import za.ac.cput.domain.Cart;
-import za.ac.cput.domain.CartItem;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.User;
+import org.junit.jupiter.api.Order;
+import za.ac.cput.domain.*;
 import za.ac.cput.factory.CartItemFactory;
 
 import java.util.ArrayList;
@@ -18,26 +16,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class CartItemFactoryTest {
+    private static final Contact contact = new Contact.Builder().setPhoneNumber("083655389").setAltNumber("123456789").build();
 
+    private static final User user = new User.Builder().setLastName("Mseleku").setFirstName("Thandolwethu")
+            .setPassword("password").setContact(contact).build();
 
-    private static final User user = new User.Builder()
-            .setFirstName("Thando")
-            .setLastName("Mseleku")
-            //.setEmail("123@gmail.com")
-            .setPassword("password123")
-            .build();
+    private static final Cart cart = CartFactory.createCart(user, new ArrayList<>());
 
-    private static final Cart cart = new Cart.Builder()
-            .setUserID(user)
-            .build();
-    private static final Product product = new Product.Builder()
-            .setProductID(101L)
-            .setTitle("Digital Art")
-            .setDescription("A beautiful digital painting")
-            .setPrice(49.99)
-            .setCategoryID("C001")
-            .build();
-
+    private static final ProductFactory productFactory = new ProductFactory();
+    private static final Category category = new Category.Builder().setName("Pirates").setDescription("Pirates on the cruise").build();
+    private static final Product product = productFactory.create(222L,category,"Beach Outing",
+            "Pirates on the beach",15.000);
     private static final CartItem cartItem1 = CartItemFactory.createCartItem(cart,product,user,10,10.000);
     private static final CartItem cartItem2 = CartItemFactory.createCartItem(cart,product,user,-5,20.000);
 

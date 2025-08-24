@@ -18,7 +18,7 @@ public class Wishlist {
     @JoinTable(
             name = "wishlist_products",
             joinColumns = @JoinColumn(name = "wishlistID"),
-            inverseJoinColumns = @JoinColumn(name = "productID")
+            inverseJoinColumns = @JoinColumn(name = "productId")
     )
     private List<Product> products;
 
