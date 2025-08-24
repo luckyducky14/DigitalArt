@@ -45,6 +45,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<Order> getAllOrders() {
+        return List.of();
+    }
+
+    @Override
     public List<Order> getAll() {
         return repository.findAll();
     }

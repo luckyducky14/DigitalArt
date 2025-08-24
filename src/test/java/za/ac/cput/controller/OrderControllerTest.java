@@ -26,16 +26,15 @@ public class OrderControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "/order";
+    private final String BASE_URL = "/orders";
 
     @Test
     void testCreateOrder() {
         Order order = new Order.Builder()
-               // .setOrderID(101L)
                 .setOrderAmount(120.0)
                 .setTotalAmount(150.0)
                 .setOrderDate(LocalDateTime.now())
-                .setCartItem( Collections.emptyList())
+                .setCartItem(Collections.emptyList())
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
@@ -45,15 +44,13 @@ public class OrderControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(101, response.getBody().getOrderID());
+        assertNotNull(response.getBody().getOrderID());
     }
+
 
     @Test
     void testReadOrder() {
-
         Order order = new Order.Builder()
-               // .setOrderID(102L)
-
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(200.0)
                 .setOrderDate(LocalDateTime.now())
@@ -61,23 +58,26 @@ public class OrderControllerTest {
                 .setPaymentStatus(OrderStatus.PENDING)
                 .build();
 
-        restTemplate.postForEntity(BASE_URL + "/create", order, Order.class);
+        ResponseEntity<Order> createResponse = restTemplate.postForEntity(
+                BASE_URL + "/create", order, Order.class
+        );
+        Long generatedId = createResponse.getBody().getOrderID();
 
-        // Read
         ResponseEntity<Order> response = restTemplate.getForEntity(
-                BASE_URL + "/read/" + order.getOrderID(), Order.class
+                BASE_URL + "/read/" + generatedId, Order.class
         );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(102, response.getBody().getOrderID());
+        assertEquals(generatedId, response.getBody().getOrderID());
     }
+
 
     @Test
     void testUpdateOrder() {
 
         Order order = new Order.Builder()
-               // .setOrderID(103L)
+                .setOrderID(103L)
 
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(250.0)
@@ -96,7 +96,7 @@ public class OrderControllerTest {
 
         HttpEntity<Order> request = new HttpEntity<>(updatedOrder);
         ResponseEntity<Order> response = restTemplate.exchange(
-                BASE_URL + "/update",
+                BASE_URL + "/update/" + order.getOrderID(),
                 HttpMethod.PUT,
                 request,
                 Order.class
@@ -111,7 +111,7 @@ public class OrderControllerTest {
     void testDeleteOrder() {
 
         Order order = new Order.Builder()
-                //.setOrderID(104L)
+                .setOrderID(104L)
                 .setCartItem(Collections.emptyList())
                 .setTotalAmount(300.0)
                 .setOrderDate(LocalDateTime.now())
