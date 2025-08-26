@@ -59,7 +59,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> filterByMaxPrice(double maxPrice) {
-        return repository.findByPriceLessThan(maxPrice);
+        return repository.findByPriceLessThanEqual(maxPrice);
     }
 }
 
