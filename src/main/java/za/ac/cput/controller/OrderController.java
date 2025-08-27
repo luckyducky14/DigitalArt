@@ -26,6 +26,8 @@ public class OrderController {
         return service.create(order);
     }
 
+
+
     @GetMapping("/read/{id}")
     public Order read(@PathVariable Long id) {
         return service.read(id);
@@ -34,6 +36,12 @@ public class OrderController {
     @PutMapping("/update/{id}")
     public Order update(@PathVariable Long id , @RequestBody Order order) {
         return service.update(order);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
+        List<Order> orders = service.getOrdersByUserId(userId);
+        return ResponseEntity.ok(orders);
     }
 
     @DeleteMapping("/delete/{id}")
