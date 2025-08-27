@@ -28,7 +28,8 @@ class ProductControllerTest {
     private static Category testCategory;
 
     @BeforeAll
-    static void setUp(@Autowired ProductFactory productFactory,
+    static void setUp(@Autowired ProductController productController,
+                      @Autowired ProductFactory productFactory,
                       @Autowired CategoryRepository categoryRepository) {
         // Create and save a category using builder
         testCategory = categoryRepository.save(
@@ -46,6 +47,7 @@ class ProductControllerTest {
                 "Digital portrait of a person",
                 150.0
         );
+        product1 = productController.create(product1);
     }
 
     @Test

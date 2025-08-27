@@ -21,6 +21,7 @@ public class Product {
     private String title;
     private String description;
     private double price;
+    private String imageUrl; // stores relative pathway for images
 
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -39,6 +40,7 @@ public class Product {
         this.title = builder.title;
         this.description = builder.description;
         this.price = builder.price;
+        this.imageUrl = builder.imageUrl;
     }
 
     public Long getProductID() {
@@ -78,6 +80,7 @@ public class Product {
         private String title;
         private String description;
         private double price;
+        private String imageUrl;
 
         public Builder setProductID(Long productID) {
             this.productID = productID;
@@ -103,6 +106,10 @@ public class Product {
             this.price = price;
             return this;
         }
+        public Builder setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
 
         public Builder copy(Product product) {
             this.productID = product.productID;
@@ -110,6 +117,7 @@ public class Product {
             this.title = product.title;
             this.description = product.description;
             this.price = product.price;
+            this.imageUrl = product.imageUrl;
             return this;
         }
 
